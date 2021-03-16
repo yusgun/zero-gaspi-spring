@@ -41,6 +41,7 @@ public class Paiement {
 		this.commandePayante = commandePayante;
 	}
 
+<<<<<<< HEAD
 	public Long getId() {
 		return id;
 	}
@@ -65,6 +66,12 @@ public class Paiement {
 		this.commandePayante = commandePayante;
 	}
 	
+=======
+	public Object getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+>>>>>>> a9ca29f9b62f7b3fffee77c7b421eaebdf2fdb73
 	
 	
 }

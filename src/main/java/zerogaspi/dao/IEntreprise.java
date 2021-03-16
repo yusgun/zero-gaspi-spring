@@ -11,4 +11,7 @@ public interface IEntreprise extends JpaRepository<Entreprise, Long> {
 	
 	@Query("select e from Entreprise e where e.nomEntreprise = :nomEntreprise")
 	Entreprise findByNomEntreprise(@Param("nomEntreprise") String nomEntreprise);
+	
+	@Query("select e from Entreprise e where e.typeRestauration = :typeRestauration")
+	Entreprise findByTypeRestauration(@Param("typeRestauration") String typeRestauration);
 }

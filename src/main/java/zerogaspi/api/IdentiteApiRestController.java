@@ -26,14 +26,15 @@ import zerogaspi.model.Identite;
 @RestController
 @RequestMapping("/api/identite")
 public class IdentiteApiRestController {
+
 	@Autowired
 	private IIdentite identiteDao;
 
 	@GetMapping("")
 	public List<Identite> list() {
 		List<Identite> Identites = identiteDao.findAll();
+		return Identites;
 
-		return Identites; // transforme en JSON via jackson
 	}
 
 	@GetMapping("/{id}")
@@ -97,4 +98,8 @@ public class IdentiteApiRestController {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> a9ca29f9b62f7b3fffee77c7b421eaebdf2fdb73
 }

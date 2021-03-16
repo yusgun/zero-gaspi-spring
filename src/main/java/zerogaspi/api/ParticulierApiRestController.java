@@ -26,14 +26,14 @@ import zerogaspi.model.Particulier;
 @RestController
 @RequestMapping("/api/particulier")
 public class ParticulierApiRestController {
+
 	@Autowired
 	private IParticulier particulierDao;
 
 	@GetMapping("")
 	public List<Particulier> list() {
 		List<Particulier> Particuliers = particulierDao.findAll();
-
-		return Particuliers; // transforme en JSON via jackson
+		return Particuliers;
 	}
 
 	@GetMapping("/{id}")
@@ -97,4 +97,8 @@ public class ParticulierApiRestController {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> a9ca29f9b62f7b3fffee77c7b421eaebdf2fdb73
 }

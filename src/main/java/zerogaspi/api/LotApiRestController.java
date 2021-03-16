@@ -26,14 +26,14 @@ import zerogaspi.model.Lot;
 @RestController
 @RequestMapping("/api/lot")
 public class LotApiRestController {
+
 	@Autowired
 	private ILot lotDao;
 
 	@GetMapping("")
 	public List<Lot> list() {
 		List<Lot> Lots = lotDao.findAll();
-
-		return Lots; // transforme en JSON via jackson
+		return Lots;
 	}
 
 	@GetMapping("/{id}")
@@ -77,7 +77,11 @@ public class LotApiRestController {
 		updates.forEach((key, value) -> {
 			Field field = ReflectionUtils.findField(Lot.class, key);
 			ReflectionUtils.makeAccessible(field);
+<<<<<<< HEAD
 			ReflectionUtils.setField(field, LotFind, value);
+=======
+			ReflectionUtils.setField(field, Lot.class, value);
+>>>>>>> a9ca29f9b62f7b3fffee77c7b421eaebdf2fdb73
 		});
 
 		Lot LotUpdate = lotDao.save(LotFind);

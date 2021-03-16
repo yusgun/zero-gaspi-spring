@@ -15,33 +15,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import zerogaspi.dao.IFacture;
-import zerogaspi.model.Facture;
+import zerogaspi.dao.IFavoris;
+import zerogaspi.model.ListeFavori;
 
-@RestController
-@RequestMapping("/api/facture")
-public class FactureApiRestController {
 
+public class FavorisApiRestController {
+	
 	@Autowired
-	private IFacture factureDao;
+	private IFavoris favorisDao;
 
 	@GetMapping("")
-	public List<Facture> list() {
-		List<Facture> Factures = factureDao.findAll();
+	public List<ListeFavori> list() {
+		List<ListeFavori> Favoris = favorisDao.findAll();
 
-		return Factures;
+		return Favoris;
 	}
 
 	@GetMapping("/{id}")
-	public Facture find(@PathVariable Long id) {
-		Optional<Facture> optFacture = factureDao.findById(id);
+	public ListeFavori find(@PathVariable Long id) {
+		Optional<ListeFavori> optFavori = favorisDao.findById(id);
 
-		if (optFacture.isPresent()) {
-			return optFacture.get();
+		if (optFavori.isPresent()) {
+			return optFavori.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
@@ -49,56 +46,53 @@ public class FactureApiRestController {
 	
 
 	@PostMapping("")
-	public Facture create(Facture Facture) {	
-		Facture = factureDao.save(Facture);
+	public ListeFavori create(ListeFavori ListeFavori) {	
+		ListeFavori = favorisDao.save(ListeFavori);
 
-		return Facture;
+		return ListeFavori;
 	}
 
 	@PutMapping("/{id}")
-	public Facture update(@RequestBody Facture Facture, @PathVariable Long id) {
-		if (!factureDao.existsById(id) || !id.equals(Facture.getId())) {
+	public ListeFavori update(@RequestBody ListeFavori ListeFavori, @PathVariable Long id) {
+		if (!favorisDao.existsById(id) || !id.equals(ListeFavori.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		Facture = factureDao.save(Facture);
+		ListeFavori = favorisDao.save(ListeFavori);
 
-		return Facture;
+		return ListeFavori;
 	}
 
 	@PatchMapping("/{id}")
-	public Facture partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
-		if (!factureDao.existsById(id)) {
+	public ListeFavori partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
+		if (!favorisDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		final Facture FactureFind = factureDao.findById(id).get();
+		final ListeFavori FavoriFind = favorisDao.findById(id).get();
 
 		updates.forEach((key, value) -> {
-			Field field = ReflectionUtils.findField(Facture.class, key);
+			Field field = ReflectionUtils.findField(ListeFavori.class, key);
 			ReflectionUtils.makeAccessible(field);
-			ReflectionUtils.setField(field, FactureFind, value);
+			ReflectionUtils.setField(field, FavoriFind, value);
 		});
 
-		Facture FactureUpdate = factureDao.save(FactureFind);
+		ListeFavori FavoriUpdate = favorisDao.save(FavoriFind);
 
-		return FactureUpdate;
+		return FavoriUpdate;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		if (!factureDao.existsById(id)) {
+		if (!favorisDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		factureDao.deleteById(id);
+		favorisDao.deleteById(id);
 
-		if (factureDao.existsById(id)) {
+		if (favorisDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}
-<<<<<<< HEAD
-=======
 
->>>>>>> a9ca29f9b62f7b3fffee77c7b421eaebdf2fdb73
 }

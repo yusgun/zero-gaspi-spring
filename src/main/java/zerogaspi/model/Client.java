@@ -6,7 +6,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 @Table(name = "client")
@@ -14,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class Client extends Identite {
 
 	@Column(name = "perimetre")
-	@JsonView(IViews.IViewBasic.class)
 	private int perimetre;
 
 	public Client() {

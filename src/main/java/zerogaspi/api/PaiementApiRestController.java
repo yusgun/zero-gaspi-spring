@@ -26,6 +26,7 @@ import zerogaspi.model.Paiement;
 @RestController
 @RequestMapping("/api/paiement")
 public class PaiementApiRestController {
+
 	@Autowired
 	private IPaiement paiementDao;
 
@@ -33,7 +34,7 @@ public class PaiementApiRestController {
 	public List<Paiement> list() {
 		List<Paiement> Paiements = paiementDao.findAll();
 
-		return Paiements; // transforme en JSON via jackson
+		return Paiements;
 	}
 
 	@GetMapping("/{id}")
@@ -97,4 +98,8 @@ public class PaiementApiRestController {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> a9ca29f9b62f7b3fffee77c7b421eaebdf2fdb73
 }

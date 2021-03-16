@@ -15,33 +15,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import zerogaspi.dao.IFacture;
-import zerogaspi.model.Facture;
+import zerogaspi.dao.IVendeur;
+import zerogaspi.model.Vendeur;
 
-@RestController
-@RequestMapping("/api/facture")
-public class FactureApiRestController {
-
+public class VendeurApiRestControlleur {
+	
 	@Autowired
-	private IFacture factureDao;
+	private IVendeur vendeurDao;
 
 	@GetMapping("")
-	public List<Facture> list() {
-		List<Facture> Factures = factureDao.findAll();
+	public List<Vendeur> list() {
+		List<Vendeur> Vendeurs = vendeurDao.findAll();
 
-		return Factures;
+		return Vendeurs;
 	}
 
 	@GetMapping("/{id}")
-	public Facture find(@PathVariable Long id) {
-		Optional<Facture> optFacture = factureDao.findById(id);
+	public Vendeur find(@PathVariable Long id) {
+		Optional<Vendeur> optVendeur = vendeurDao.findById(id);
 
-		if (optFacture.isPresent()) {
-			return optFacture.get();
+		if (optVendeur.isPresent()) {
+			return optVendeur.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
@@ -49,56 +45,53 @@ public class FactureApiRestController {
 	
 
 	@PostMapping("")
-	public Facture create(Facture Facture) {	
-		Facture = factureDao.save(Facture);
+	public Vendeur create(Vendeur Vendeur) {	
+		Vendeur = vendeurDao.save(Vendeur);
 
-		return Facture;
+		return Vendeur;
 	}
 
 	@PutMapping("/{id}")
-	public Facture update(@RequestBody Facture Facture, @PathVariable Long id) {
-		if (!factureDao.existsById(id) || !id.equals(Facture.getId())) {
+	public Vendeur update(@RequestBody Vendeur Vendeur, @PathVariable Long id) {
+		if (!vendeurDao.existsById(id) || !id.equals(Vendeur.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		Facture = factureDao.save(Facture);
+		Vendeur = vendeurDao.save(Vendeur);
 
-		return Facture;
+		return Vendeur;
 	}
 
 	@PatchMapping("/{id}")
-	public Facture partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
-		if (!factureDao.existsById(id)) {
+	public Vendeur partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
+		if (!vendeurDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		final Facture FactureFind = factureDao.findById(id).get();
+		final Vendeur VendeurFind = vendeurDao.findById(id).get();
 
 		updates.forEach((key, value) -> {
-			Field field = ReflectionUtils.findField(Facture.class, key);
+			Field field = ReflectionUtils.findField(Vendeur.class, key);
 			ReflectionUtils.makeAccessible(field);
-			ReflectionUtils.setField(field, FactureFind, value);
+			ReflectionUtils.setField(field, VendeurFind, value);
 		});
 
-		Facture FactureUpdate = factureDao.save(FactureFind);
+		Vendeur VendeurUpdate = vendeurDao.save(VendeurFind);
 
-		return FactureUpdate;
+		return VendeurUpdate;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		if (!factureDao.existsById(id)) {
+		if (!vendeurDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		factureDao.deleteById(id);
+		vendeurDao.deleteById(id);
 
-		if (factureDao.existsById(id)) {
+		if (vendeurDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}
-<<<<<<< HEAD
-=======
 
->>>>>>> a9ca29f9b62f7b3fffee77c7b421eaebdf2fdb73
 }

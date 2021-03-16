@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonView;
 
 
 @Entity
@@ -16,10 +15,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class Particulier extends Client {
 	
 	@GeneratedValue
-	@JsonView(IViews.IViewBasic.class)
 	private Long id;
 	@Column(length = 255)
-	@JsonView(IViews.IViewBasic.class)
 	private String libelle;
 	
 

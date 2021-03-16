@@ -19,79 +19,81 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import zerogaspi.dao.IClient;
-import zerogaspi.model.Client;
+import zerogaspi.dao.IPaiement;
+import zerogaspi.dao.IPaiement;
+import zerogaspi.model.Paiement;
 
 @RestController
-@RequestMapping("/api/client")
-public class ClientApiRestController {
+@RequestMapping("/api/paiement")
+public class PaiementApiRestController {
 	@Autowired
-	private IClient clientDao;
+	private IPaiement paiementDao;
 
 	@GetMapping("")
-	public List<Client> list() {
-		List<Client> Clients = clientDao.findAll();
+	public List<Paiement> list() {
+		List<Paiement> Paiements = paiementDao.findAll();
 
-		return Clients; // transforme en JSON via jackson
+		return Paiements; // transforme en JSON via jackson
 	}
 
 	@GetMapping("/{id}")
-	public Client find(@PathVariable Long id) {
-		Optional<Client> optClient = clientDao.findById(id);
+	public Paiement find(@PathVariable Long id) {
+		Optional<Paiement> optPaiement = paiementDao.findById(id);
 
-		if (optClient.isPresent()) {
-			return optClient.get();
+		if (optPaiement.isPresent()) {
+			return optPaiement.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
+	
 
 	@PostMapping("")
-	public Client create(Client Client) {
-		Client = clientDao.save(Client);
+	public Paiement create(Paiement Paiement) {	
+		Paiement = paiementDao.save(Paiement);
 
-		return Client;
+		return Paiement;
 	}
 
 	@PutMapping("/{id}")
-	public Client update(@RequestBody Client Client, @PathVariable Long id) {
-		if (!clientDao.existsById(id) || !id.equals(Client.getId())) {
+	public Paiement update(@RequestBody Paiement Paiement, @PathVariable Long id) {
+		if (!paiementDao.existsById(id) || !id.equals(Paiement.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		Client = clientDao.save(Client);
+		Paiement = paiementDao.save(Paiement);
 
-		return Client;
+		return Paiement;
 	}
 
 	@PatchMapping("/{id}")
-	public Client partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+	public Paiement partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
+		if (!paiementDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		final Client ClientFind = clientDao.findById(id).get();
+		final Paiement PaiementFind = paiementDao.findById(id).get();
 
 		updates.forEach((key, value) -> {
-			Field field = ReflectionUtils.findField(Client.class, key);
+			Field field = ReflectionUtils.findField(Paiement.class, key);
 			ReflectionUtils.makeAccessible(field);
-			ReflectionUtils.setField(field, ClientFind, value);
+			ReflectionUtils.setField(field, PaiementFind, value);
 		});
 
-		Client ClientUpdate = clientDao.save(ClientFind);
+		Paiement PaiementUpdate = paiementDao.save(PaiementFind);
 
-		return ClientUpdate;
+		return PaiementUpdate;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+		if (!paiementDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		clientDao.deleteById(id);
+		paiementDao.deleteById(id);
 
-		if (clientDao.existsById(id)) {
+		if (paiementDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}

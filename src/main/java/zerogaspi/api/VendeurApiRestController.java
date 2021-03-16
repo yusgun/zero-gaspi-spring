@@ -19,79 +19,81 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import zerogaspi.dao.IClient;
-import zerogaspi.model.Client;
+import zerogaspi.dao.IVendeur;
+import zerogaspi.dao.IVendeur;
+import zerogaspi.model.Vendeur;
 
 @RestController
-@RequestMapping("/api/client")
-public class ClientApiRestController {
+@RequestMapping("/api/vendeur")
+public class VendeurApiRestController {
 	@Autowired
-	private IClient clientDao;
+	private IVendeur vendeurDao;
 
 	@GetMapping("")
-	public List<Client> list() {
-		List<Client> Clients = clientDao.findAll();
+	public List<Vendeur> list() {
+		List<Vendeur> Vendeurs = vendeurDao.findAll();
 
-		return Clients; // transforme en JSON via jackson
+		return Vendeurs; // transforme en JSON via jackson
 	}
 
 	@GetMapping("/{id}")
-	public Client find(@PathVariable Long id) {
-		Optional<Client> optClient = clientDao.findById(id);
+	public Vendeur find(@PathVariable Long id) {
+		Optional<Vendeur> optVendeur = vendeurDao.findById(id);
 
-		if (optClient.isPresent()) {
-			return optClient.get();
+		if (optVendeur.isPresent()) {
+			return optVendeur.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
+	
 
 	@PostMapping("")
-	public Client create(Client Client) {
-		Client = clientDao.save(Client);
+	public Vendeur create(Vendeur Vendeur) {	
+		Vendeur = vendeurDao.save(Vendeur);
 
-		return Client;
+		return Vendeur;
 	}
 
 	@PutMapping("/{id}")
-	public Client update(@RequestBody Client Client, @PathVariable Long id) {
-		if (!clientDao.existsById(id) || !id.equals(Client.getId())) {
+	public Vendeur update(@RequestBody Vendeur Vendeur, @PathVariable Long id) {
+		if (!vendeurDao.existsById(id) || !id.equals(Vendeur.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		Client = clientDao.save(Client);
+		Vendeur = vendeurDao.save(Vendeur);
 
-		return Client;
+		return Vendeur;
 	}
 
 	@PatchMapping("/{id}")
-	public Client partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+	public Vendeur partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
+		if (!vendeurDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		final Client ClientFind = clientDao.findById(id).get();
+		final Vendeur VendeurFind = vendeurDao.findById(id).get();
 
 		updates.forEach((key, value) -> {
-			Field field = ReflectionUtils.findField(Client.class, key);
+			Field field = ReflectionUtils.findField(Vendeur.class, key);
 			ReflectionUtils.makeAccessible(field);
-			ReflectionUtils.setField(field, ClientFind, value);
+			ReflectionUtils.setField(field, VendeurFind, value);
 		});
 
-		Client ClientUpdate = clientDao.save(ClientFind);
+		Vendeur VendeurUpdate = vendeurDao.save(VendeurFind);
 
-		return ClientUpdate;
+		return VendeurUpdate;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+		if (!vendeurDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		clientDao.deleteById(id);
+		vendeurDao.deleteById(id);
 
-		if (clientDao.existsById(id)) {
+		if (vendeurDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}

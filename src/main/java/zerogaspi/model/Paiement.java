@@ -40,6 +40,31 @@ public class Paiement {
 		this.horodatage = horodatage;
 		this.commandePayante = commandePayante;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getHorodatage() {
+		return horodatage;
+	}
+
+	public void setHorodatage(Date horodatage) {
+		this.horodatage = horodatage;
+	}
+
+	public CommandePayante getCommandePayante() {
+		return commandePayante;
+	}
+
+	public void setCommandePayante(CommandePayante commandePayante) {
+		this.commandePayante = commandePayante;
+	}
+	
 	
 	
 }

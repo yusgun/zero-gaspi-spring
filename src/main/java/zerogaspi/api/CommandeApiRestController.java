@@ -15,28 +15,32 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import zerogaspi.dao.IAssociation;
-import zerogaspi.model.Association;
+import zerogaspi.dao.ICommande;
+import zerogaspi.model.Commande;
 
+@RestController
+@RequestMapping("/api/commande")
 public class CommandeApiRestController {
 	@Autowired
-	private IAssociation associationDao;
+	private ICommande commandeDao;
 
 	@GetMapping("")
-	public List<Association> list() {
-		List<Association> Associations = associationDao.findAll();
+	public List<Commande> list() {
+		List<Commande> Commandes = commandeDao.findAll();
 
-		return Associations; // transforme en JSON via jackson
+		return Commandes; // transforme en JSON via jackson
 	}
 
 	@GetMapping("/{id}")
-	public Association find(@PathVariable Long id) {
-		Optional<Association> optAssociation = associationDao.findById(id);
+	public Commande find(@PathVariable Long id) {
+		Optional<Commande> optCommande = commandeDao.findById(id);
 
-		if (optAssociation.isPresent()) {
-			return optAssociation.get();
+		if (optCommande.isPresent()) {
+			return optCommande.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
@@ -44,51 +48,51 @@ public class CommandeApiRestController {
 	
 
 	@PostMapping("")
-	public Association create(Association Association) {	
-		Association = associationDao.save(Association);
+	public Commande create(Commande Commande) {	
+		Commande = commandeDao.save(Commande);
 
-		return Association;
+		return Commande;
 	}
 
 	@PutMapping("/{id}")
-	public Association update(@RequestBody Association Association, @PathVariable Long id) {
-		if (!associationDao.existsById(id) || !id.equals(Association.getId())) {
+	public Commande update(@RequestBody Commande Commande, @PathVariable Long id) {
+		if (!commandeDao.existsById(id) || !id.equals(Commande.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		Association = associationDao.save(Association);
+		Commande = commandeDao.save(Commande);
 
-		return Association;
+		return Commande;
 	}
 
 	@PatchMapping("/{id}")
-	public Association partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
-		if (!associationDao.existsById(id)) {
+	public Commande partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
+		if (!commandeDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		final Association AssociationFind = associationDao.findById(id).get();
+		final Commande CommandeFind = commandeDao.findById(id).get();
 
 		updates.forEach((key, value) -> {
-			Field field = ReflectionUtils.findField(Association.class, key);
+			Field field = ReflectionUtils.findField(Commande.class, key);
 			ReflectionUtils.makeAccessible(field);
-			ReflectionUtils.setField(field, AssociationFind, value);
+			ReflectionUtils.setField(field, CommandeFind, value);
 		});
 
-		Association AssociationUpdate = associationDao.save(AssociationFind);
+		Commande CommandeUpdate = commandeDao.save(CommandeFind);
 
-		return AssociationUpdate;
+		return CommandeUpdate;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		if (!associationDao.existsById(id)) {
+		if (!commandeDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		associationDao.deleteById(id);
+		commandeDao.deleteById(id);
 
-		if (associationDao.existsById(id)) {
+		if (commandeDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}

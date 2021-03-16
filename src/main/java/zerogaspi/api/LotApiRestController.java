@@ -19,79 +19,81 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import zerogaspi.dao.IClient;
-import zerogaspi.model.Client;
+import zerogaspi.dao.ILot;
+import zerogaspi.dao.ILot;
+import zerogaspi.model.Lot;
 
 @RestController
-@RequestMapping("/api/client")
-public class ClientApiRestController {
+@RequestMapping("/api/lot")
+public class LotApiRestController {
 	@Autowired
-	private IClient clientDao;
+	private ILot lotDao;
 
 	@GetMapping("")
-	public List<Client> list() {
-		List<Client> Clients = clientDao.findAll();
+	public List<Lot> list() {
+		List<Lot> Lots = lotDao.findAll();
 
-		return Clients; // transforme en JSON via jackson
+		return Lots; // transforme en JSON via jackson
 	}
 
 	@GetMapping("/{id}")
-	public Client find(@PathVariable Long id) {
-		Optional<Client> optClient = clientDao.findById(id);
+	public Lot find(@PathVariable Long id) {
+		Optional<Lot> optLot = lotDao.findById(id);
 
-		if (optClient.isPresent()) {
-			return optClient.get();
+		if (optLot.isPresent()) {
+			return optLot.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
+	
 
 	@PostMapping("")
-	public Client create(Client Client) {
-		Client = clientDao.save(Client);
+	public Lot create(Lot Lot) {	
+		Lot = lotDao.save(Lot);
 
-		return Client;
+		return Lot;
 	}
 
 	@PutMapping("/{id}")
-	public Client update(@RequestBody Client Client, @PathVariable Long id) {
-		if (!clientDao.existsById(id) || !id.equals(Client.getId())) {
+	public Lot update(@RequestBody Lot Lot, @PathVariable Long id) {
+		if (!lotDao.existsById(id) || !id.equals(Lot.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		Client = clientDao.save(Client);
+		Lot = lotDao.save(Lot);
 
-		return Client;
+		return Lot;
 	}
 
 	@PatchMapping("/{id}")
-	public Client partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+	public Lot partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
+		if (!lotDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		final Client ClientFind = clientDao.findById(id).get();
+		final Lot LotFind = lotDao.findById(id).get();
 
 		updates.forEach((key, value) -> {
-			Field field = ReflectionUtils.findField(Client.class, key);
+			Field field = ReflectionUtils.findField(Lot.class, key);
 			ReflectionUtils.makeAccessible(field);
-			ReflectionUtils.setField(field, ClientFind, value);
+			ReflectionUtils.setField(field, LotFind, value);
 		});
 
-		Client ClientUpdate = clientDao.save(ClientFind);
+		Lot LotUpdate = lotDao.save(LotFind);
 
-		return ClientUpdate;
+		return LotUpdate;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+		if (!lotDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		clientDao.deleteById(id);
+		lotDao.deleteById(id);
 
-		if (clientDao.existsById(id)) {
+		if (lotDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}

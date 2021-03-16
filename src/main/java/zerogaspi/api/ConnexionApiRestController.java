@@ -15,29 +15,32 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import zerogaspi.dao.IConnexion;
-import zerogaspi.model.Commande;
 import zerogaspi.model.Connexion;
 
+@RestController
+@RequestMapping("/api/connexion")
 public class ConnexionApiRestController {
 	@Autowired
 	private IConnexion connexionDao;
 
 	@GetMapping("")
 	public List<Connexion> list() {
-		List<Connexion> Commandes = connexionDao.findAll();
+		List<Connexion> Connexions = connexionDao.findAll();
 
-		return Commandes; // transforme en JSON via jackson
+		return Connexions; // transforme en JSON via jackson
 	}
 
 	@GetMapping("/{id}")
 	public Connexion find(@PathVariable Long id) {
-		Optional<Connexion> optCommande = connexionDao.findById(id);
+		Optional<Connexion> optConnexion = connexionDao.findById(id);
 
-		if (optCommande.isPresent()) {
-			return optCommande.get();
+		if (optConnexion.isPresent()) {
+			return optConnexion.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
@@ -68,17 +71,17 @@ public class ConnexionApiRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		final Connexion CommandeFind = connexionDao.findById(id).get();
+		final Connexion ConnexionFind = connexionDao.findById(id).get();
 
 		updates.forEach((key, value) -> {
-			Field field = ReflectionUtils.findField(Commande.class, key);
+			Field field = ReflectionUtils.findField(Connexion.class, key);
 			ReflectionUtils.makeAccessible(field);
-			ReflectionUtils.setField(field, CommandeFind, value);
+			ReflectionUtils.setField(field, ConnexionFind, value);
 		});
 
-		Connexion CommandeUpdate = connexionDao.save(CommandeFind);
+		Connexion ConnexionUpdate = connexionDao.save(ConnexionFind);
 
-		return CommandeUpdate;
+		return ConnexionUpdate;
 	}
 
 	@DeleteMapping("/{id}")

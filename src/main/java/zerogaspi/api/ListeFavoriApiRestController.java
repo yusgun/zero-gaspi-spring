@@ -19,79 +19,80 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import zerogaspi.dao.IClient;
-import zerogaspi.model.Client;
+import zerogaspi.dao.IFavoris;
+import zerogaspi.model.ListeFavori;
 
 @RestController
-@RequestMapping("/api/client")
-public class ClientApiRestController {
+@RequestMapping("/api/listefavori")
+public class ListeFavoriApiRestController {
 	@Autowired
-	private IClient clientDao;
+	private IFavoris listeFavoriDao;
 
 	@GetMapping("")
-	public List<Client> list() {
-		List<Client> Clients = clientDao.findAll();
+	public List<ListeFavori> list() {
+		List<ListeFavori> ListeFavoris = listeFavoriDao.findAll();
 
-		return Clients; // transforme en JSON via jackson
+		return ListeFavoris; // transforme en JSON via jackson
 	}
 
 	@GetMapping("/{id}")
-	public Client find(@PathVariable Long id) {
-		Optional<Client> optClient = clientDao.findById(id);
+	public ListeFavori find(@PathVariable Long id) {
+		Optional<ListeFavori> optListeFavori = listeFavoriDao.findById(id);
 
-		if (optClient.isPresent()) {
-			return optClient.get();
+		if (optListeFavori.isPresent()) {
+			return optListeFavori.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
+	
 
 	@PostMapping("")
-	public Client create(Client Client) {
-		Client = clientDao.save(Client);
+	public ListeFavori create(ListeFavori ListeFavori) {	
+		ListeFavori = listeFavoriDao.save(ListeFavori);
 
-		return Client;
+		return ListeFavori;
 	}
 
 	@PutMapping("/{id}")
-	public Client update(@RequestBody Client Client, @PathVariable Long id) {
-		if (!clientDao.existsById(id) || !id.equals(Client.getId())) {
+	public ListeFavori update(@RequestBody ListeFavori ListeFavori, @PathVariable Long id) {
+		if (!listeFavoriDao.existsById(id) || !id.equals(ListeFavori.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		Client = clientDao.save(Client);
+		ListeFavori = listeFavoriDao.save(ListeFavori);
 
-		return Client;
+		return ListeFavori;
 	}
 
 	@PatchMapping("/{id}")
-	public Client partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+	public ListeFavori partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
+		if (!listeFavoriDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		final Client ClientFind = clientDao.findById(id).get();
+		final ListeFavori ListeFavoriFind = listeFavoriDao.findById(id).get();
 
 		updates.forEach((key, value) -> {
-			Field field = ReflectionUtils.findField(Client.class, key);
+			Field field = ReflectionUtils.findField(ListeFavori.class, key);
 			ReflectionUtils.makeAccessible(field);
-			ReflectionUtils.setField(field, ClientFind, value);
+			ReflectionUtils.setField(field, ListeFavoriFind, value);
 		});
 
-		Client ClientUpdate = clientDao.save(ClientFind);
+		ListeFavori ListeFavoriUpdate = listeFavoriDao.save(ListeFavoriFind);
 
-		return ClientUpdate;
+		return ListeFavoriUpdate;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+		if (!listeFavoriDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		clientDao.deleteById(id);
+		listeFavoriDao.deleteById(id);
 
-		if (clientDao.existsById(id)) {
+		if (listeFavoriDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}

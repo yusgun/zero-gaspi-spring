@@ -19,79 +19,81 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import zerogaspi.dao.IClient;
-import zerogaspi.model.Client;
+import zerogaspi.dao.IIdentite;
+import zerogaspi.dao.IIdentite;
+import zerogaspi.model.Identite;
 
 @RestController
-@RequestMapping("/api/client")
-public class ClientApiRestController {
+@RequestMapping("/api/identite")
+public class IdentiteApiRestController {
 	@Autowired
-	private IClient clientDao;
+	private IIdentite identiteDao;
 
 	@GetMapping("")
-	public List<Client> list() {
-		List<Client> Clients = clientDao.findAll();
+	public List<Identite> list() {
+		List<Identite> Identites = identiteDao.findAll();
 
-		return Clients; // transforme en JSON via jackson
+		return Identites; // transforme en JSON via jackson
 	}
 
 	@GetMapping("/{id}")
-	public Client find(@PathVariable Long id) {
-		Optional<Client> optClient = clientDao.findById(id);
+	public Identite find(@PathVariable Long id) {
+		Optional<Identite> optIdentite = identiteDao.findById(id);
 
-		if (optClient.isPresent()) {
-			return optClient.get();
+		if (optIdentite.isPresent()) {
+			return optIdentite.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
+	
 
 	@PostMapping("")
-	public Client create(Client Client) {
-		Client = clientDao.save(Client);
+	public Identite create(Identite Identite) {	
+		Identite = identiteDao.save(Identite);
 
-		return Client;
+		return Identite;
 	}
 
 	@PutMapping("/{id}")
-	public Client update(@RequestBody Client Client, @PathVariable Long id) {
-		if (!clientDao.existsById(id) || !id.equals(Client.getId())) {
+	public Identite update(@RequestBody Identite Identite, @PathVariable Long id) {
+		if (!identiteDao.existsById(id) || !id.equals(Identite.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		Client = clientDao.save(Client);
+		Identite = identiteDao.save(Identite);
 
-		return Client;
+		return Identite;
 	}
 
 	@PatchMapping("/{id}")
-	public Client partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+	public Identite partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
+		if (!identiteDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		final Client ClientFind = clientDao.findById(id).get();
+		final Identite IdentiteFind = identiteDao.findById(id).get();
 
 		updates.forEach((key, value) -> {
-			Field field = ReflectionUtils.findField(Client.class, key);
+			Field field = ReflectionUtils.findField(Identite.class, key);
 			ReflectionUtils.makeAccessible(field);
-			ReflectionUtils.setField(field, ClientFind, value);
+			ReflectionUtils.setField(field, IdentiteFind, value);
 		});
 
-		Client ClientUpdate = clientDao.save(ClientFind);
+		Identite IdentiteUpdate = identiteDao.save(IdentiteFind);
 
-		return ClientUpdate;
+		return IdentiteUpdate;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+		if (!identiteDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		clientDao.deleteById(id);
+		identiteDao.deleteById(id);
 
-		if (clientDao.existsById(id)) {
+		if (identiteDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}

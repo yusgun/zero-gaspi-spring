@@ -19,79 +19,81 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import zerogaspi.dao.IClient;
-import zerogaspi.model.Client;
+import zerogaspi.dao.IFacture;
+import zerogaspi.dao.IFacture;
+import zerogaspi.model.Facture;
 
 @RestController
-@RequestMapping("/api/client")
-public class ClientApiRestController {
+@RequestMapping("/api/facture")
+public class FactureApiRestController {
 	@Autowired
-	private IClient clientDao;
+	private IFacture factureDao;
 
 	@GetMapping("")
-	public List<Client> list() {
-		List<Client> Clients = clientDao.findAll();
+	public List<Facture> list() {
+		List<Facture> Factures = factureDao.findAll();
 
-		return Clients; // transforme en JSON via jackson
+		return Factures; // transforme en JSON via jackson
 	}
 
 	@GetMapping("/{id}")
-	public Client find(@PathVariable Long id) {
-		Optional<Client> optClient = clientDao.findById(id);
+	public Facture find(@PathVariable Long id) {
+		Optional<Facture> optFacture = factureDao.findById(id);
 
-		if (optClient.isPresent()) {
-			return optClient.get();
+		if (optFacture.isPresent()) {
+			return optFacture.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
+	
 
 	@PostMapping("")
-	public Client create(Client Client) {
-		Client = clientDao.save(Client);
+	public Facture create(Facture Facture) {	
+		Facture = factureDao.save(Facture);
 
-		return Client;
+		return Facture;
 	}
 
 	@PutMapping("/{id}")
-	public Client update(@RequestBody Client Client, @PathVariable Long id) {
-		if (!clientDao.existsById(id) || !id.equals(Client.getId())) {
+	public Facture update(@RequestBody Facture Facture, @PathVariable Long id) {
+		if (!factureDao.existsById(id) || !id.equals(Facture.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		Client = clientDao.save(Client);
+		Facture = factureDao.save(Facture);
 
-		return Client;
+		return Facture;
 	}
 
 	@PatchMapping("/{id}")
-	public Client partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+	public Facture partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
+		if (!factureDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		final Client ClientFind = clientDao.findById(id).get();
+		final Facture FactureFind = factureDao.findById(id).get();
 
 		updates.forEach((key, value) -> {
-			Field field = ReflectionUtils.findField(Client.class, key);
+			Field field = ReflectionUtils.findField(Facture.class, key);
 			ReflectionUtils.makeAccessible(field);
-			ReflectionUtils.setField(field, ClientFind, value);
+			ReflectionUtils.setField(field, FactureFind, value);
 		});
 
-		Client ClientUpdate = clientDao.save(ClientFind);
+		Facture FactureUpdate = factureDao.save(FactureFind);
 
-		return ClientUpdate;
+		return FactureUpdate;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		if (!clientDao.existsById(id)) {
+		if (!factureDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		clientDao.deleteById(id);
+		factureDao.deleteById(id);
 
-		if (clientDao.existsById(id)) {
+		if (factureDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}

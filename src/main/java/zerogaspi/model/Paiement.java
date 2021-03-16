@@ -40,6 +40,11 @@ public class Paiement {
 		this.horodatage = horodatage;
 		this.commandePayante = commandePayante;
 	}
+
+	public Object getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

@@ -58,7 +58,7 @@ public abstract class Identite {
 		this.numeroTelephone = numeroTelephone;
 		this.rue = rue;
 		this.codePostal = codePostal;
-		Adresse = adresse;
+		this.adresse = adresse;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.connexion = connexion;

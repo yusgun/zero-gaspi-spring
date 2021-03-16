@@ -11,5 +11,8 @@ public interface IParticulier extends JpaRepository<Particulier, Long> {
 	@Query("select p from Particulier p where p.id = :id")
 	Particulier findByIdParticulier(@Param("id") Long id);
 	
+	@Query("select p from Particulier p where p.libelle = :libelle")
+	Particulier findByLibelleParticulier(@Param("libelle") String libelle);
+	
 	
 }

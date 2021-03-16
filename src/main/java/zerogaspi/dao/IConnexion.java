@@ -13,5 +13,5 @@ public interface IConnexion extends JpaRepository<Connexion, Long> {
 	
 	@Query("select c from Connexion c where c.motDePasse = :motDePasse")
 	Connexion findByMotDePasseConnexion(@Param("motDePasseConnexion") String motDePasse);
-
+	
 }

@@ -1,8 +1,8 @@
-package zero_gaspi.dao;
+package zerogaspi.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import zero_gaspi.model.Association;
+import zerogaspi.model.Association;
 
 public interface IAssociation extends JpaRepository<Association, Long> {
 

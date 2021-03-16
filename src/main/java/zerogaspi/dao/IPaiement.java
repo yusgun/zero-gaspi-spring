@@ -1,8 +1,8 @@
-package zero_gaspi.dao;
+package zerogaspi.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import zero_gaspi.model.Paiement;
+import zerogaspi.model.Paiement;
 
 public interface IPaiement extends JpaRepository<Paiement, Long>{
 

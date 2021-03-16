@@ -1,43 +1,54 @@
-package zero_gaspi.model;
+package zerogaspi.model;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-
 @Entity
-@Table(name="particulier")
-@DiscriminatorValue("particulier")
-public class Particulier extends Client {
+@Table(name="association")
+@DiscriminatorValue("association")
+public class Association extends Client{
 	
 	@GeneratedValue
 	@JsonView(IViews.IViewBasic.class)
 	private Long id;
-	@Column(length = 255)
+	@Column(name= "libelle", length = 255 )
 	@JsonView(IViews.IViewBasic.class)
 	private String libelle;
+	@Column(name="numero_rna", length = 45)
+	@JsonView(IViews.IViewBasic.class)
+	private int numero;
 	
-
-	public Particulier() {
+	
+	public Association() {
 		super();
 	}
 
-	public Particulier(Long id, String numeroTelephone, String rue, String codePostal, String adresse, String nom,
+	public Association(Long id, String libelle, int numero) {
+		super();
+		this.id = id;
+		this.libelle = libelle;
+		this.numero = numero;
+	}
+
+
+	public Association(Long id, String numeroTelephone, String rue, String codePostal, String adresse, String nom,
 			String prenom, Connexion connexion, int perimetre) {
 		super(id, numeroTelephone, rue, codePostal, adresse, nom, prenom, connexion, perimetre);
 		
 	}
 
-	public Particulier(String numeroTelephone, String rue, String codePostal, String adresse, String nom, String prenom,
+
+	public Association(String numeroTelephone, String rue, String codePostal, String adresse, String nom, String prenom,
 			Connexion connexion, int perimetre) {
 		super(numeroTelephone, rue, codePostal, adresse, nom, prenom, connexion, perimetre);
 		
 	}
+
 
 	public Long getId() {
 		return id;
@@ -55,5 +66,19 @@ public class Particulier extends Client {
 		this.libelle = libelle;
 	}
 
+	public int getNumero() {
+		return numero;
+	}
 
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public Association(String libelle, int numero) {
+		super();
+		this.libelle = libelle;
+		this.numero = numero;
+	}
+
+	
 }

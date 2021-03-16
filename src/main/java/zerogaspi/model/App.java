@@ -1,4 +1,4 @@
-package zero_gaspi.model;
+package zerogaspi.model;
 
 /**
  * Hello world!

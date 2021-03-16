@@ -1,8 +1,8 @@
-package zero_gaspi.dao;
+package zerogaspi.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import zero_gaspi.model.Identite;
+import zerogaspi.model.Identite;
 
 public interface IIdentite extends JpaRepository<Identite,Long> {
 

@@ -1,4 +1,4 @@
-package zero_gaspi.model;
+package zerogaspi.model;
 
 public interface IViews {
 	public static interface IViewBasic {}

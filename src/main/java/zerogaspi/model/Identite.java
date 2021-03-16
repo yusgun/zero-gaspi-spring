@@ -27,7 +27,7 @@ public abstract class Identite {
 	private String numeroTelephone;
 	private String rue;
 	private String codePostal;
-	private String adresse;
+	private String ville;
 	private String nom;
 	private String prenom;
 	@OneToOne
@@ -39,26 +39,26 @@ public abstract class Identite {
 		super();
 	}
 
-	public Identite(Long id, String numeroTelephone, String rue, String codePostal, String adresse, String nom,
+	public Identite(Long id, String numeroTelephone, String rue, String codePostal, String ville, String nom,
 			String prenom, Connexion connexion) {
 		super();
 		this.id = id;
 		this.numeroTelephone = numeroTelephone;
 		this.rue = rue;
 		this.codePostal = codePostal;
-		this.adresse = adresse;
+		this.ville = ville;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.connexion = connexion;
 	}
 
-	public Identite(String numeroTelephone, String rue, String codePostal, String adresse, String nom, String prenom,
+	public Identite(String numeroTelephone, String rue, String codePostal, String ville, String nom, String prenom,
 			Connexion connexion) {
 		super();
 		this.numeroTelephone = numeroTelephone;
 		this.rue = rue;
 		this.codePostal = codePostal;
-		this.adresse = adresse;
+		this.ville = ville;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.connexion = connexion;
@@ -96,12 +96,12 @@ public abstract class Identite {
 		this.codePostal = codePostal;
 	}
 
-	public String getAdresse() {
-		return adresse;
+	public String getVille() {
+		return ville;
 	}
 
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
+	public void setVille(String ville) {
+		this.ville = ville;
 	}
 
 	public Connexion getConnexion() {

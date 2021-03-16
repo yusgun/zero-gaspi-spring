@@ -7,11 +7,5 @@ import org.springframework.data.repository.query.Param;
 import zerogaspi.model.Connexion;
 
 public interface IConnexion extends JpaRepository<Connexion, Long> {
-	
-	@Query("select c from Connexion c where c.mail = :mail")
-	Connexion findByMailConnexion(@Param("mailConnexion") String mail);
-	
-	@Query("select c from Connexion c where c.motDePasse = :motDePasse")
-	Connexion findByMotDePasseConnexion(@Param("motDePasseConnexion") String motDePasse);
 
 }

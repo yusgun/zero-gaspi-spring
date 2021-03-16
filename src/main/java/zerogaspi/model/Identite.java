@@ -27,7 +27,7 @@ public abstract class Identite {
 	private String numeroTelephone;
 	private String rue;
 	private String codePostal;
-	private String Adresse;
+	private String adresse;
 	private String nom;
 	private String prenom;
 	@OneToOne
@@ -46,7 +46,7 @@ public abstract class Identite {
 		this.numeroTelephone = numeroTelephone;
 		this.rue = rue;
 		this.codePostal = codePostal;
-		Adresse = adresse;
+		this.adresse = adresse;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.connexion = connexion;

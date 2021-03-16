@@ -97,11 +97,19 @@ public abstract class Identite {
 	}
 
 	public String getAdresse() {
-		return Adresse;
+		return adresse;
 	}
 
 	public void setAdresse(String adresse) {
-		Adresse = adresse;
+		this.adresse = adresse;
+	}
+
+	public Connexion getConnexion() {
+		return connexion;
+	}
+
+	public void setConnexion(Connexion connexion) {
+		this.connexion = connexion;
 	}
 
 	public String getNom() {

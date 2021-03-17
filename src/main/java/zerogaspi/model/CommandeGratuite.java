@@ -20,8 +20,8 @@ public class CommandeGratuite extends Commande {
 		this.montant = 0;
 	}
 
-	public CommandeGratuite(String listeProduits, Date datePaiement, Date dateEnvoie, Date dateArrivee, double montant) {
-		super(listeProduits, datePaiement, dateEnvoie, dateArrivee);
+	public CommandeGratuite(Date datePaiement, Date dateEnvoie, Date dateArrivee, double montant, Lot lot) {
+		super(datePaiement, dateEnvoie, dateArrivee, lot);
 		this.montant = 0;
 	}
 

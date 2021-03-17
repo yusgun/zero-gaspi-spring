@@ -1,14 +1,15 @@
 package zerogaspi.model;
 
 import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,8 +23,6 @@ public class Commande {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(length = 255)
-	private String listeProduits;
 	@Temporal(TemporalType.DATE)
 	private Date datePaiement;
 	@Temporal(TemporalType.DATE)
@@ -31,27 +30,30 @@ public class Commande {
 	@Temporal(TemporalType.DATE)
 	private Date dateArrivee;
 	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "lot_id")
+	private Lot lot;
 	
 	
 public Commande() {
 	super();
 }
 
-public Commande(String listeProduits, Date datePaiement, Date dateEnvoie, Date dateArrivee) {
+public Commande(Date datePaiement, Date dateEnvoie, Date dateArrivee, Lot lot) {
 	super();
-	this.listeProduits = listeProduits;
 	this.datePaiement = datePaiement;
 	this.dateEnvoie = dateEnvoie;
 	this.dateArrivee = dateArrivee;
+	this.lot = lot;
 }
 
-public Commande(Long id, String listeProduits, Date datePaiement, Date dateEnvoie, Date dateArrivee) {
+public Commande(Long id, Date datePaiement, Date dateEnvoie, Date dateArrivee, Lot lot) {
 	super();
 	this.id = id;
-	this.listeProduits = listeProduits;
 	this.datePaiement = datePaiement;
 	this.dateEnvoie = dateEnvoie;
 	this.dateArrivee = dateArrivee;
+	this.lot = lot;
 }
 
 public Long getId() {
@@ -60,14 +62,6 @@ public Long getId() {
 
 public void setId(Long id) {
 	this.id = id;
-}
-
-public String getListeProduits() {
-	return listeProduits;
-}
-
-public void setListeProduits(String listeProduits) {
-	this.listeProduits = listeProduits;
 }
 
 public Date getDatePaiement() {
@@ -93,6 +87,14 @@ public Date getDateArrivee() {
 public void setDateArrivee(Date dateArrivee) {
 	this.dateArrivee = dateArrivee;
 }
-	
+
+public Lot getLot() {
+	return lot;
+}
+
+public void setLot(Lot lot) {
+	this.lot = lot;
+}
+
 	
 }

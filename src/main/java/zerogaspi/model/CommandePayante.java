@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name="commande_payante")
@@ -17,13 +16,13 @@ public class CommandePayante extends Commande {
 		super();
 	}
 
-	public CommandePayante(Long id, String listeProduits, Date datePaiement, Date dateEnvoie, Date dateArrivee, double montant) {
-		super(id, listeProduits, datePaiement, dateEnvoie, dateArrivee);
+	public CommandePayante(Long id, Date datePaiement, Date dateEnvoie, Date dateArrivee, double montant, Lot lot) {
+		super(id, datePaiement, dateEnvoie, dateArrivee, lot);
 		this.montant = montant;
 	}
 
-	public CommandePayante(String listeProduits, Date datePaiement, Date dateEnvoie, Date dateArrivee, double montant) {
-		super(listeProduits, datePaiement, dateEnvoie, dateArrivee);
+	public CommandePayante( Date datePaiement, Date dateEnvoie, Date dateArrivee, double montant, Lot lot) {
+		super(datePaiement, dateEnvoie, dateArrivee, lot);
 		this.montant = montant;
 	}
 	

@@ -7,4 +7,5 @@ import zerogaspi.model.Connexion;
 
 public interface IConnexion extends JpaRepository<Connexion, Long> {
 
+
 }

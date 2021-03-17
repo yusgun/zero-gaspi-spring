@@ -3,13 +3,9 @@ package zerogaspi.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "lot")
@@ -21,30 +17,23 @@ public class Lot {
 	private String libelle;
 	@Column(length = 255)
 	private String description;
-	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "commande_id")
-	private Commande commande;
 
-	
 	
 	public Lot() {
 		super();
 	}
 
-	public Lot(String libelle, String description, Commande commande) {
+	public Lot(String libelle, String description) {
 		super();
 		this.libelle = libelle;
 		this.description = description;
-		this.commande = commande;
 	}
 
-	public Lot(Long id, String libelle, String description, Commande commande) {
+	public Lot(Long id, String libelle, String description) {
 		super();
 		this.id = id;
 		this.libelle = libelle;
 		this.description = description;
-		this.commande = commande;
 	}
 
 	public Long getId() {
@@ -71,14 +60,6 @@ public class Lot {
 		this.description = description;
 	}
 
-	public Commande getCommande() {
-		return commande;
-	}
-
-	public void setCommande(Commande commande) {
-		this.commande = commande;
-	}
-	
 	
 	
 }

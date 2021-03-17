@@ -44,14 +44,18 @@ public class FavorisTest {
 	private IVendeur vendeurDao;
 	
 	@Test
+	/**
+	 * Listing des entreprises favorites d'un client
+	 * Table : liste_favori 
+	 */
 	public void listerEntreprisesFavoris() {
-		//Arrange 
+		// Création des données nécessaires 
 		Connexion connexion2 = new Connexion("bilel@bilel.com", "dscvddf888");
 		connexion2 = connexionDao.save(connexion2);
 		Client client = new Client("0764585212", "rue des ca", "59200", "adresseouai", "Dupont", "Paul", connexion2 ,20  );
 		client = clientDao.save(client);
+		// Récupère les données avant ajout
 		List<Entreprise> debut = favorisDao.findByClient(client);
-		
 		Connexion connexion = new Connexion("toto@toto.com", "azertyui123");
 		connexion = connexionDao.save(connexion);
 		Vendeur vendeur = new Vendeur("0645993786","rue bidule","59000","Lille","Nom","Prenom", connexion,new Date());
@@ -60,12 +64,13 @@ public class FavorisTest {
 		entreprise = entrepriseDao.save(entreprise);
 		Entreprise entreprise2 = new Entreprise("399 826 981 00017", "Boucherie TOTO", "Boucherie", vendeur);
 		entreprise2 = entrepriseDao.save(entreprise2);
+		// Ajout des données dans la liste favori
 		favorisDao.save(new ListeFavori(client, entreprise));
 		favorisDao.save(new ListeFavori(client, entreprise2));
-
+		// Récupération des entreprises favorites par client
 		List<Entreprise> fin = favorisDao.findByClient(client);
-		
-		assertEquals(2, fin.size() - debut.size() );
+		// Lancement du test...
+		assertEquals(2,fin.size() - debut.size());
 	}
 	
 	

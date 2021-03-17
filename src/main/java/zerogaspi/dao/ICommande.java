@@ -9,9 +9,5 @@ import org.springframework.data.repository.query.Param;
 import zerogaspi.model.Commande;
 
 public interface ICommande extends JpaRepository<Commande, Long> {
-	List<Commande> findByListeProduits(String listeProduits);
-	
-//	@Query("select c from Commande c where c.idCommande = :idCommande")
-//	Commande findByIdCommande(@Param("idCOmmande") Long idCommande);
 
 }

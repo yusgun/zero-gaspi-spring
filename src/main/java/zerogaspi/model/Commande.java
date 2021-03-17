@@ -34,6 +34,11 @@ public class Commande {
 	@JoinColumn(name = "lot_id")
 	private Lot lot;
 	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "facture_id")
+	private Facture facture;
+	
+	
 	
 public Commande() {
 	super();

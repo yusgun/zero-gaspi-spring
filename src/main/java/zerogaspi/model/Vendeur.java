@@ -31,9 +31,9 @@ public class Vendeur extends Identite {
 		this.horaire = horaire;
 	}
 
-	public Vendeur(String numeroTelephone, String rue, String codePostal, String adresse, String nom, String prenom,
+	public Vendeur(String numeroTelephone, String rue, String codePostal,String ville, String nom, String prenom,
 			Connexion connexion, Date horaire) {
-		super(numeroTelephone, rue, codePostal, adresse, nom, prenom, connexion);
+		super(numeroTelephone, rue, codePostal, ville, nom, prenom, connexion);
 		this.horaire = horaire;
 	}
 

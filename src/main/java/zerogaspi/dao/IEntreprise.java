@@ -1,5 +1,7 @@
 package zerogaspi.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +16,7 @@ public interface IEntreprise extends JpaRepository<Entreprise, Long> {
 	
 	@Query("select e from Entreprise e where e.typeRestauration = :typeRestauration")
 	Entreprise findByTypeRestauration(@Param("typeRestauration") String typeRestauration);
+	
+	@Query("select e.nomEntreprise,e.vendeur.ville,e.vendeur.codePostal,e.vendeur.numeroTelephone,e.vendeur.rue from Entreprise e where e.nomEntreprise = :nom or e.vendeur.ville = :ville or e.vendeur.codePostal = :cp")
+	List<Object[]> findByNomOrCPOrVille(@Param("nom")String nomEntreprise, @Param("ville") String ville, @Param("cp") String codePostal);
 }

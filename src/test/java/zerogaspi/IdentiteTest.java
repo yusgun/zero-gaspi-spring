@@ -11,9 +11,7 @@ import zerogaspi.dao.IIdentite;
 import zerogaspi.model.Association;
 import zerogaspi.model.Client;
 import zerogaspi.model.Connexion;
-import zerogaspi.model.Entreprise;
 import zerogaspi.model.Identite;
-import zerogaspi.model.Vendeur;
 
 @SpringBootTest
 public class IdentiteTest {

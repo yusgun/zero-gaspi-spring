@@ -5,6 +5,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,24 +19,29 @@ public class Lot {
 	private String libelle;
 	@Column(length = 255)
 	private String description;
+	@OneToOne
+	@JoinColumn(name="entreprise_id")
+	private Entreprise entreprise;
 
-	
 	public Lot() {
 		super();
 	}
 
-	public Lot(String libelle, String description) {
-		super();
-		this.libelle = libelle;
-		this.description = description;
-	}
-
-	public Lot(Long id, String libelle, String description) {
+	public Lot(Long id, String libelle, String description, Entreprise entreprise) {
 		super();
 		this.id = id;
 		this.libelle = libelle;
 		this.description = description;
+		this.entreprise = entreprise;
 	}
+
+	public Lot(String libelle, String description, Entreprise entreprise) {
+		super();
+		this.libelle = libelle;
+		this.description = description;
+		this.entreprise = entreprise;
+	}
+
 
 	public Long getId() {
 		return id;
@@ -58,6 +65,14 @@ public class Lot {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Entreprise getEntreprise() {
+		return entreprise;
+	}
+
+	public void setEntreprise(Entreprise entreprise) {
+		this.entreprise = entreprise;
 	}
 
 	

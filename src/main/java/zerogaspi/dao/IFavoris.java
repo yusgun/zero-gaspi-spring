@@ -17,10 +17,4 @@ public interface IFavoris extends JpaRepository<ListeFavori, Long> {
 	List<Entreprise>findByClient(@Param("client") Client client);
 	
 	
-	//@Query("select lf.entreprise from ListeFavori lf where lf.client = :client")
-	//List<Entreprise>findByClient(@Param("client") Client client);
-	
-	//@Query("select lf.entreprise from ListeFavori lf where lf.client = :client")
-	//List<Entreprise>findByClient(@Param("client") Client client);
-	
 }

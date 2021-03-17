@@ -52,17 +52,6 @@ public class FavorisApiRestController {
 		return ListeFavori;
 	}
 
-	@PutMapping("/{id}")
-	public ListeFavori update(@RequestBody ListeFavori ListeFavori, @PathVariable Long id) {
-		if (!favorisDao.existsById(id) || !id.equals(ListeFavori.getId())) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
-		}
-
-		ListeFavori = favorisDao.save(ListeFavori);
-
-		return ListeFavori;
-	}
-
 	@PatchMapping("/{id}")
 	public ListeFavori partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!favorisDao.existsById(id)) {

@@ -1,9 +1,11 @@
 package zerogaspi.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -13,14 +15,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name="liste_favoris")
 public class ListeFavori {
 	@Id
-	@JsonView(IViews.IViewBasic.class)
+	@GeneratedValue
+	private Long id;
 	@OneToOne
 	@JoinColumn(name= "client_id")
 	private Client client;
-	@Id
 	@OneToOne
 	@JoinColumn(name="entreprise_id")
-	@JsonView(IViews.IViewListeFavoriDetail.class)
 	private Entreprise entreprise;
 	public ListeFavori() {
 		super();
@@ -29,6 +30,22 @@ public class ListeFavori {
 		super();
 		this.client = client;
 		this.entreprise = entreprise;
+	}
+	
+	public ListeFavori(Long id, Client client, Entreprise entreprise) {
+		super();
+		this.id = id;
+		this.client = client;
+		this.entreprise = entreprise;
+	}
+	
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public Client getClient() {
 		return client;

@@ -13,9 +13,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name="liste_favoris")
 public class ListeFavori {
 	@Id
-	@GeneratedValue
 	@JsonView(IViews.IViewBasic.class)
-	private Long id;
+	@OneToOne
+	@JoinColumn(name= "client_id")
+	private Client client;
+	@Id
 	@OneToOne
 	@JoinColumn(name="entreprise_id")
 	@JsonView(IViews.IViewListeFavoriDetail.class)
@@ -23,32 +25,24 @@ public class ListeFavori {
 	public ListeFavori() {
 		super();
 	}
-	public ListeFavori(Entreprise entreprise) {
+	public ListeFavori(Client client, Entreprise entreprise) {
 		super();
+		this.client = client;
 		this.entreprise = entreprise;
 	}
-	
-	public ListeFavori(Long id, Entreprise entreprise) {
-		super();
-		this.id = id;
-		this.entreprise = entreprise;
+	public Client getClient() {
+		return client;
 	}
-	
-	public Long getId() {
-		return id;
+	public void setClient(Client client) {
+		this.client = client;
 	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 	public Entreprise getEntreprise() {
 		return entreprise;
 	}
-	
 	public void setEntreprise(Entreprise entreprise) {
 		this.entreprise = entreprise;
 	}
+
 	
 
 }

@@ -97,8 +97,4 @@ public class FactureApiRestController {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> a9ca29f9b62f7b3fffee77c7b421eaebdf2fdb73
 }

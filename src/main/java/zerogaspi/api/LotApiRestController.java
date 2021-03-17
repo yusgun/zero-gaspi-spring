@@ -77,11 +77,7 @@ public class LotApiRestController {
 		updates.forEach((key, value) -> {
 			Field field = ReflectionUtils.findField(Lot.class, key);
 			ReflectionUtils.makeAccessible(field);
-<<<<<<< HEAD
-			ReflectionUtils.setField(field, LotFind, value);
-=======
 			ReflectionUtils.setField(field, Lot.class, value);
->>>>>>> a9ca29f9b62f7b3fffee77c7b421eaebdf2fdb73
 		});
 
 		Lot LotUpdate = lotDao.save(LotFind);

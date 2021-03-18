@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.ICommandePayante;
 import zerogaspi.model.Commande;
 import zerogaspi.model.CommandePayante;
+import zerogaspi.model.IViews;
 
 @RestController
 @RequestMapping("/api/commandepayante")
@@ -29,6 +32,7 @@ public class CommandePayanteApiRestController {
 	private ICommandePayante CommandePayanteDao;
 
 	@GetMapping("")
+	@JsonView(IViews.IViewCommandePayante.class)
 	public List<CommandePayante> list() {
 		List<CommandePayante> Commandes = CommandePayanteDao.findAll();
 
@@ -36,6 +40,7 @@ public class CommandePayanteApiRestController {
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(IViews.IViewCommandePayante.class)
 	public CommandePayante find(@PathVariable Long id) {
 		Optional<CommandePayante> optCommande = CommandePayanteDao.findById(id);
 
@@ -48,6 +53,7 @@ public class CommandePayanteApiRestController {
 	
 
 	@PostMapping("")
+	@JsonView(IViews.IViewCommandePayante.class)
 	public CommandePayante create(CommandePayante CommandePayante) {	
 		CommandePayante = CommandePayanteDao.save(CommandePayante);
 
@@ -55,6 +61,7 @@ public class CommandePayanteApiRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(IViews.IViewCommandePayante.class)
 	public CommandePayante update(@RequestBody CommandePayante CommandePayante, @PathVariable Long id) {
 		if (!CommandePayanteDao.existsById(id) || !id.equals(CommandePayante.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -66,6 +73,7 @@ public class CommandePayanteApiRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(IViews.IViewCommandePayante.class)
 	public CommandePayante partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!CommandePayanteDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

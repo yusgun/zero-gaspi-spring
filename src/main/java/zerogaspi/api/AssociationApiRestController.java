@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import zerogaspi.model.Association;
+import zerogaspi.model.IViews;
+import zerogaspi.model.IViews.IViewAssociation;
+import zerogaspi.model.IViews.IViewBasic;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ReflectionUtils;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
 
 import zerogaspi.dao.IAssociation;
 
@@ -30,6 +35,7 @@ public class AssociationApiRestController {
 	private IAssociation associationDao;
 
 	@GetMapping("")
+	@JsonView(IViews.IViewAssociation.class)
 	public List<Association> list() {
 		List<Association> Associations = associationDao.findAll();
 
@@ -37,6 +43,7 @@ public class AssociationApiRestController {
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(IViews.IViewAssociation.class)
 	public Association find(@PathVariable Long id) {
 		Optional<Association> optAssociation = associationDao.findById(id);
 
@@ -49,6 +56,7 @@ public class AssociationApiRestController {
 	
 
 	@PostMapping("")
+	@JsonView(IViews.IViewAssociation.class)
 	public Association create(Association Association) {	
 		Association = associationDao.save(Association);
 
@@ -56,6 +64,7 @@ public class AssociationApiRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(IViews.IViewAssociation.class)
 	public Association update(@RequestBody Association Association, @PathVariable Long id) {
 		if (!associationDao.existsById(id) || !id.equals(Association.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -67,6 +76,7 @@ public class AssociationApiRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(IViews.IViewAssociation.class)
 	public Association partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!associationDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

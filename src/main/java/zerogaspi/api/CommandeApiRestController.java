@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.ICommande;
 import zerogaspi.model.Commande;
+import zerogaspi.model.IViews;
 
 @RestController
 @RequestMapping("/api/commande")
@@ -29,6 +32,7 @@ public class CommandeApiRestController {
 	private ICommande commandeDao;
 
 	@GetMapping("")
+	@JsonView(IViews.IViewCommande.class)
 	public List<Commande> list() {
 		List<Commande> Commandes = commandeDao.findAll();
 
@@ -36,6 +40,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(IViews.IViewCommande.class)
 	public Commande find(@PathVariable Long id) {
 		Optional<Commande> optCommande = commandeDao.findById(id);
 
@@ -48,6 +53,7 @@ public class CommandeApiRestController {
 	
 
 	@PostMapping("")
+	@JsonView(IViews.IViewCommande.class)
 	public Commande create(Commande Commande) {	
 		Commande = commandeDao.save(Commande);
 
@@ -55,6 +61,7 @@ public class CommandeApiRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(IViews.IViewCommande.class)
 	public Commande update(@RequestBody Commande Commande, @PathVariable Long id) {
 		if (!commandeDao.existsById(id) || !id.equals(Commande.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -66,6 +73,7 @@ public class CommandeApiRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(IViews.IViewCommande.class)
 	public Commande partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!commandeDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

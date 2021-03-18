@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.ICommandeGratuite;
 import zerogaspi.model.Commande;
 import zerogaspi.model.CommandeGratuite;
+import zerogaspi.model.IViews;
 
 @RestController
 @RequestMapping("/api/commandegratuite")
@@ -30,6 +33,7 @@ public class CommandeGratuiteApiRestController {
 	private ICommandeGratuite commandeGratuiteDao;
 
 	@GetMapping("")
+	@JsonView(IViews.IViewCommandeGratuite.class)
 	public List<CommandeGratuite> list() {
 		List<CommandeGratuite> Commandes = commandeGratuiteDao.findAll();
 
@@ -37,6 +41,7 @@ public class CommandeGratuiteApiRestController {
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(IViews.IViewCommandeGratuite.class)
 	public CommandeGratuite find(@PathVariable Long id) {
 		Optional<CommandeGratuite> optCommande = commandeGratuiteDao.findById(id);
 
@@ -49,6 +54,7 @@ public class CommandeGratuiteApiRestController {
 	
 
 	@PostMapping("")
+	@JsonView(IViews.IViewCommandeGratuite.class)
 	public CommandeGratuite create(CommandeGratuite Commandegratuite) {	
 		Commandegratuite = commandeGratuiteDao.save(Commandegratuite);
 
@@ -56,6 +62,7 @@ public class CommandeGratuiteApiRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(IViews.IViewCommandeGratuite.class)
 	public CommandeGratuite update(@RequestBody CommandeGratuite Commandegratuite, @PathVariable Long id) {
 		if (!commandeGratuiteDao.existsById(id) || !id.equals(Commandegratuite.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -67,6 +74,7 @@ public class CommandeGratuiteApiRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(IViews.IViewCommandeGratuite.class)
 	public CommandeGratuite partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!commandeGratuiteDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

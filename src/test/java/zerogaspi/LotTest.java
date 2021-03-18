@@ -41,12 +41,12 @@ public class LotTest {
 		connexionDao.save(connexion);
 		vendeurDao.save(vendeur1);
 		entrepriseDao.save(entreprise1);
-		List<Lot> listDepart = lotDao.findByEntreprise(entreprise1);		
+		List<Lot> listDepart = lotDao.findByEntreprise(entreprise1.getId());		
 		Lot lot1 = new Lot("Patisserie #1", "Lot de patisserie 1", entreprise1);
 		Lot lot2 = new Lot("Patisserie #2", "Lot de patisserie 2", entreprise1);
 		lotDao.save(lot1);
 		lotDao.save(lot2);
-		List<Lot> listFin = lotDao.findByEntreprise(entreprise1);		
+		List<Lot> listFin = lotDao.findByEntreprise(entreprise1.getId());		
 		assertEquals(2, listFin.size() - listDepart.size());
 	}
 }

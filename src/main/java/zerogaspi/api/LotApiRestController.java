@@ -102,12 +102,15 @@ public class LotApiRestController {
 		}
 	}
 	
-	@GetMapping("/entreprise/{entreprise}")
-	public List<Lot> findByEntreprise(@PathVariable Entreprise entreprise) {
-		if(entrepriseDao.existsById(entreprise.getId())) {
+	@GetMapping("/entreprise/{id}")
+	public List<Lot> findByEntreprise(@PathVariable Long id) {
+		if(entrepriseDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
-		List<Lot> lots = lotDao.findByEntreprise(entreprise);
+		List<Lot> lots = lotDao.findByEntreprise(id);
+		if(lots.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
 		return lots;
 	}
 }

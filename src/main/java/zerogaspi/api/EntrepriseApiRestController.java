@@ -40,7 +40,7 @@ public class EntrepriseApiRestController {
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(IViews.IViewConnexion.class)
+	@JsonView(IViews.IViewEntreprise.class)
 	public Entreprise find(@PathVariable Long id) {
 		Optional<Entreprise> optEntreprise = entrepriseDao.findById(id);
 
@@ -52,7 +52,7 @@ public class EntrepriseApiRestController {
 	}
 	
 	@GetMapping("/findby/{search}")
-	@JsonView(IViews.IViewConnexion.class)
+	@JsonView(IViews.IViewEntreprise.class)
 	public List<Object[]> findByOptionnal(@PathVariable String search) {
 		if (search.equals("") || search.equals(null)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -66,7 +66,7 @@ public class EntrepriseApiRestController {
 	
 
 	@PostMapping("")
-	@JsonView(IViews.IViewConnexion.class)
+	@JsonView(IViews.IViewEntreprise.class)
 	public Entreprise create(Entreprise Entreprise) {	
 		Entreprise = entrepriseDao.save(Entreprise);
 
@@ -74,7 +74,7 @@ public class EntrepriseApiRestController {
 	}
 
 	@PutMapping("/{id}")
-	@JsonView(IViews.IViewConnexion.class)
+	@JsonView(IViews.IViewEntreprise.class)
 	public Entreprise update(@RequestBody Entreprise Entreprise, @PathVariable Long id) {
 		if (!entrepriseDao.existsById(id) || !id.equals(Entreprise.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -86,7 +86,7 @@ public class EntrepriseApiRestController {
 	}
 
 	@PatchMapping("/{id}")
-	@JsonView(IViews.IViewConnexion.class)
+	@JsonView(IViews.IViewEntreprise.class)
 	public Entreprise partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!entrepriseDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

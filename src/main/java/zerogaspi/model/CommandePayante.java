@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name="commande_payante")
 @DiscriminatorValue("achat")
 public class CommandePayante extends Commande {
-	@JsonView(IViews.IViewCommandePayante.class)
+	@JsonView(IViews.IViewBasic.class)
 	private double montant;
 	
 	public CommandePayante() {

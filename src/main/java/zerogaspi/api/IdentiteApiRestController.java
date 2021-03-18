@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.IIdentite;
 import zerogaspi.dao.IIdentite;
+import zerogaspi.model.IViews;
 import zerogaspi.model.Identite;
 
 @RestController
@@ -38,6 +41,7 @@ public class IdentiteApiRestController {
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(IViews.IViewIdentite.class)
 	public Identite find(@PathVariable Long id) {
 		Optional<Identite> optIdentite = identiteDao.findById(id);
 
@@ -50,6 +54,7 @@ public class IdentiteApiRestController {
 	
 
 	@PostMapping("")
+	@JsonView(IViews.IViewIdentite.class)
 	public Identite create(Identite Identite) {	
 		Identite = identiteDao.save(Identite);
 
@@ -57,6 +62,7 @@ public class IdentiteApiRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(IViews.IViewIdentite.class)
 	public Identite update(@RequestBody Identite Identite, @PathVariable Long id) {
 		if (!identiteDao.existsById(id) || !id.equals(Identite.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -68,6 +74,7 @@ public class IdentiteApiRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(IViews.IViewIdentite.class)
 	public Identite partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!identiteDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

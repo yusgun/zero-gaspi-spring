@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.IEntreprise;
 import zerogaspi.dao.ILot;
 import zerogaspi.model.Entreprise;
+import zerogaspi.model.IViews;
 import zerogaspi.model.Lot;
 
 @RestController
@@ -35,12 +38,14 @@ public class LotApiRestController {
 	private IEntreprise entrepriseDao;
 
 	@GetMapping("")
+	@JsonView(IViews.IViewLot.class)
 	public List<Lot> list() {
 		List<Lot> lots = lotDao.findAll();
 		return lots;
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(IViews.IViewLot.class)
 	public Lot find(@PathVariable Long id) {
 		Optional<Lot> optLot = lotDao.findById(id);
 
@@ -53,6 +58,7 @@ public class LotApiRestController {
 	
 
 	@PostMapping("")
+	@JsonView(IViews.IViewLot.class)
 	public Lot create(Lot lot) {	
 		lot = lotDao.save(lot);
 
@@ -60,6 +66,7 @@ public class LotApiRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(IViews.IViewLot.class)
 	public Lot update(@RequestBody Lot lot, @PathVariable Long id) {
 		if (!lotDao.existsById(id) || !id.equals(lot.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -71,6 +78,7 @@ public class LotApiRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(IViews.IViewLot.class)
 	public Lot partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!lotDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -103,6 +111,7 @@ public class LotApiRestController {
 	}
 	
 	@GetMapping("/entreprise/{id}")
+	@JsonView(IViews.IViewLot.class)
 	public List<Lot> findByEntreprise(@PathVariable Long id) {
 		if(entrepriseDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

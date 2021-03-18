@@ -19,10 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.IClient;
 import zerogaspi.dao.IFavoris;
 import zerogaspi.model.Client;
 import zerogaspi.model.Entreprise;
+import zerogaspi.model.IViews;
 import zerogaspi.model.ListeFavori;
 
 
@@ -36,6 +39,7 @@ public class FavorisApiRestController {
 	private IClient clientDao;
 
 	@GetMapping("")
+	@JsonView(IViews.IViewListeFavori.class)
 	public List<ListeFavori> list() {
 		List<ListeFavori> Favoris = favorisDao.findAll();
 
@@ -43,6 +47,7 @@ public class FavorisApiRestController {
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(IViews.IViewListeFavori.class)
 	public ListeFavori find(@PathVariable Long id) {
 		Optional<ListeFavori> optFavori = favorisDao.findById(id);
 
@@ -54,6 +59,7 @@ public class FavorisApiRestController {
 	}
 
 	@PostMapping("")
+	@JsonView(IViews.IViewListeFavori.class)
 	public ListeFavori create(ListeFavori ListeFavori) {
 		ListeFavori = favorisDao.save(ListeFavori);
 
@@ -61,6 +67,7 @@ public class FavorisApiRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(IViews.IViewListeFavori.class)
 	public ListeFavori partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!favorisDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

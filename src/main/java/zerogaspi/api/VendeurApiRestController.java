@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.IVendeur;
 import zerogaspi.dao.IVendeur;
+import zerogaspi.model.IViews;
 import zerogaspi.model.Vendeur;
 
 @RestController
@@ -30,6 +33,7 @@ public class VendeurApiRestController {
 	private IVendeur vendeurDao;
 
 	@GetMapping("")
+	@JsonView(IViews.IViewVendeur.class)
 	public List<Vendeur> list() {
 		List<Vendeur> Vendeurs = vendeurDao.findAll();
 
@@ -37,6 +41,7 @@ public class VendeurApiRestController {
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(IViews.IViewVendeur.class)
 	public Vendeur find(@PathVariable Long id) {
 		Optional<Vendeur> optVendeur = vendeurDao.findById(id);
 
@@ -49,6 +54,7 @@ public class VendeurApiRestController {
 	
 
 	@PostMapping("")
+	@JsonView(IViews.IViewVendeur.class)
 	public Vendeur create(Vendeur Vendeur) {	
 		Vendeur = vendeurDao.save(Vendeur);
 
@@ -56,6 +62,7 @@ public class VendeurApiRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(IViews.IViewVendeur.class)
 	public Vendeur update(@RequestBody Vendeur Vendeur, @PathVariable Long id) {
 		if (!vendeurDao.existsById(id) || !id.equals(Vendeur.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -67,6 +74,7 @@ public class VendeurApiRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(IViews.IViewVendeur.class)
 	public Vendeur partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!vendeurDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

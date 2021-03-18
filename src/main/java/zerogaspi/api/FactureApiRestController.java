@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.IFacture;
 import zerogaspi.model.Facture;
+import zerogaspi.model.IViews;
 
 @RestController
 @RequestMapping("/api/facture")
@@ -30,6 +33,7 @@ public class FactureApiRestController {
 	private IFacture factureDao;
 
 	@GetMapping("")
+	@JsonView(IViews.IViewFacture.class)
 	public List<Facture> list() {
 		List<Facture> Factures = factureDao.findAll();
 
@@ -37,6 +41,7 @@ public class FactureApiRestController {
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(IViews.IViewFacture.class)
 	public Facture find(@PathVariable Long id) {
 		Optional<Facture> optFacture = factureDao.findById(id);
 
@@ -49,6 +54,7 @@ public class FactureApiRestController {
 	
 
 	@PostMapping("")
+	@JsonView(IViews.IViewFacture.class)
 	public Facture create(Facture Facture) {	
 		Facture = factureDao.save(Facture);
 
@@ -56,6 +62,7 @@ public class FactureApiRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(IViews.IViewFacture.class)
 	public Facture update(@RequestBody Facture Facture, @PathVariable Long id) {
 		if (!factureDao.existsById(id) || !id.equals(Facture.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -67,6 +74,7 @@ public class FactureApiRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(IViews.IViewFacture.class)
 	public Facture partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!factureDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

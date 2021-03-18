@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.IPaiement;
 import zerogaspi.dao.IPaiement;
+import zerogaspi.model.IViews;
 import zerogaspi.model.Paiement;
 
 @RestController
@@ -38,6 +41,7 @@ public class PaiementApiRestController {
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(IViews.IViewPaiement.class)
 	public Paiement find(@PathVariable Long id) {
 		Optional<Paiement> optPaiement = paiementDao.findById(id);
 
@@ -50,6 +54,7 @@ public class PaiementApiRestController {
 	
 
 	@PostMapping("")
+	@JsonView(IViews.IViewPaiement.class)
 	public Paiement create(Paiement Paiement) {	
 		Paiement = paiementDao.save(Paiement);
 
@@ -57,6 +62,7 @@ public class PaiementApiRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(IViews.IViewPaiement.class)
 	public Paiement update(@RequestBody Paiement Paiement, @PathVariable Long id) {
 		if (!paiementDao.existsById(id) || !id.equals(Paiement.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -68,6 +74,7 @@ public class PaiementApiRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(IViews.IViewPaiement.class)
 	public Paiement partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!paiementDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

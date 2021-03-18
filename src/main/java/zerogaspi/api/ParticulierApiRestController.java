@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.IParticulier;
 import zerogaspi.dao.IParticulier;
+import zerogaspi.model.IViews;
 import zerogaspi.model.Particulier;
 
 @RestController
@@ -31,12 +34,14 @@ public class ParticulierApiRestController {
 	private IParticulier particulierDao;
 
 	@GetMapping("")
+	@JsonView(IViews.IViewParticulier.class)
 	public List<Particulier> list() {
 		List<Particulier> Particuliers = particulierDao.findAll();
 		return Particuliers;
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(IViews.IViewParticulier.class)
 	public Particulier find(@PathVariable Long id) {
 		Optional<Particulier> optParticulier = particulierDao.findById(id);
 
@@ -49,6 +54,7 @@ public class ParticulierApiRestController {
 	
 
 	@PostMapping("")
+	@JsonView(IViews.IViewParticulier.class)
 	public Particulier create(Particulier Particulier) {	
 		Particulier = particulierDao.save(Particulier);
 
@@ -56,6 +62,7 @@ public class ParticulierApiRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(IViews.IViewParticulier.class)
 	public Particulier update(@RequestBody Particulier Particulier, @PathVariable Long id) {
 		if (!particulierDao.existsById(id) || !id.equals(Particulier.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -67,6 +74,7 @@ public class ParticulierApiRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(IViews.IViewParticulier.class)
 	public Particulier partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!particulierDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

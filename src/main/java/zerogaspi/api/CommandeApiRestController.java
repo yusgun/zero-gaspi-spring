@@ -17,20 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-<<<<<<< Updated upstream
-
 import com.fasterxml.jackson.annotation.JsonView;
-
-=======
->>>>>>> Stashed changes
 import zerogaspi.dao.ICommande;
 import zerogaspi.dao.ICommandePayante;
 import zerogaspi.model.Commande;
-<<<<<<< Updated upstream
 import zerogaspi.model.IViews;
-=======
 import zerogaspi.model.CommandePayante;
->>>>>>> Stashed changes
 
 @RestController
 @RequestMapping("/api/commande")
@@ -61,12 +53,8 @@ public class CommandeApiRestController {
 	}
 
 	@PostMapping("")
-<<<<<<< Updated upstream
 	@JsonView(IViews.IViewCommande.class)
 	public Commande create(Commande Commande) {	
-=======
-	public Commande create(Commande Commande) {
->>>>>>> Stashed changes
 		Commande = commandeDao.save(Commande);
 
 		return Commande;

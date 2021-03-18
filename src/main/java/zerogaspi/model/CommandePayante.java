@@ -6,10 +6,13 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name="commande_payante")
 @DiscriminatorValue("achat")
 public class CommandePayante extends Commande {
+	@JsonView(IViews.IViewCommandePayante.class)
 	private double montant;
 	
 	public CommandePayante() {

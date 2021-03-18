@@ -24,26 +24,26 @@ public class Commande {
 	
 	@Id
 	@GeneratedValue
-	@JsonView(IViews.IViewBasic.class)
+	@JsonView(IViews.IViewCommande.class)
 	private Long id;
 	@Temporal(TemporalType.DATE)
-	@JsonView(IViews.IViewBasic.class)
+	@JsonView(IViews.IViewCommande.class)
 	private Date datePaiement;
 	@Temporal(TemporalType.DATE)
-	@JsonView(IViews.IViewBasic.class)
+	@JsonView(IViews.IViewCommande.class)
 	private Date dateEnvoie;
 	@Temporal(TemporalType.DATE)
-	@JsonView(IViews.IViewBasic.class)
+	@JsonView(IViews.IViewCommande.class)
 	private Date dateArrivee;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "lot_id")
-	@JsonView(IViews.IViewBasic.class)
+	@JsonView(IViews.IViewCommande.class)
 	private Lot lot;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "facture_id")
-	@JsonView(IViews.IViewBasic.class)
+	@JsonView(IViews.IViewCommande.class)
 	private Facture facture;
 	
 	

@@ -13,8 +13,8 @@ import zerogaspi.model.ListeFavori;
 public interface IFavoris extends JpaRepository<ListeFavori, Long> {
 
 	
-	@Query("select lf.entreprise from ListeFavori lf where lf.client = :client")
-	List<Entreprise>findByClient(@Param("client") Client client);
+	@Query("select lf.entreprise.nomEntreprise, lf.entreprise.vendeur.numeroTelephone, lf.entreprise.vendeur.rue, lf.entreprise.vendeur.ville, lf.entreprise.vendeur.codePostal  from ListeFavori lf where lf.client.id = :id")
+	List<Object[]>findByClient(@Param("id") Long id);
 	
 	
 }

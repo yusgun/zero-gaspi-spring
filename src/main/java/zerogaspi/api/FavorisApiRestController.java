@@ -15,16 +15,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import zerogaspi.dao.IClient;
 import zerogaspi.dao.IFavoris;
+import zerogaspi.model.Client;
+import zerogaspi.model.Entreprise;
 import zerogaspi.model.ListeFavori;
 
 
+@RestController
+@RequestMapping("/favoris")
 public class FavorisApiRestController {
-	
+
 	@Autowired
 	private IFavoris favorisDao;
+	@Autowired
+	private IClient clientDao;
 
 	@GetMapping("")
 	public List<ListeFavori> list() {
@@ -43,10 +52,9 @@ public class FavorisApiRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
-	
 
 	@PostMapping("")
-	public ListeFavori create(ListeFavori ListeFavori) {	
+	public ListeFavori create(ListeFavori ListeFavori) {
 		ListeFavori = favorisDao.save(ListeFavori);
 
 		return ListeFavori;
@@ -84,4 +92,15 @@ public class FavorisApiRestController {
 		}
 	}
 
+	@GetMapping("/findby/client/{id}")
+	public List<Object[]> findByClient(@PathVariable Long id) {
+		if (!clientDao.existsById(id)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
+		}
+		List<Object[]> entreprises = favorisDao.findByClient(id);
+		if (entreprises.size() == 0){
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return entreprises;
+	}
 }

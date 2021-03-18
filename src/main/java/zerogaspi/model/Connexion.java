@@ -1,6 +1,6 @@
 package zerogaspi.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +18,8 @@ public class Connexion {
 	private Long id;
 	private String mail;
 	private String motDePasse;
+	@OneToMany(mappedBy = "connexion")
+	private Set<ConnexionRole> roles;
 
 	
 	public Connexion() {

@@ -2,6 +2,7 @@ package zerogaspi.model;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ public class Connexion {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Column(unique=true)
 	private String mail;
 	private String motDePasse;
 	@OneToMany(mappedBy = "connexion")

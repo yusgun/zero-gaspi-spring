@@ -17,7 +17,7 @@ public class ConnexionRole {
 	@GeneratedValue
 	private Long id;
 	@ManyToOne
-	@JoinColumn(name = "mail")
+	@JoinColumn(name = "connexion_id")
 	private Connexion connexion;
 	@Enumerated(EnumType.STRING)
 	private Role role;

@@ -1,19 +1,15 @@
 package zerogaspi.model;
 
-import java.util.List;
-
 import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "identite")
@@ -24,11 +20,17 @@ public abstract class Identite {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@NotEmpty(message="Ajouter un numéro de téléphone")
 	private String numeroTelephone;
+	@NotEmpty(message="Ajouter une adresse (sans CP et la ville)")
 	private String rue;
+	@NotEmpty(message="Ajouter un code postal")
 	private String codePostal;
+	@NotEmpty(message="Ajouter un code postal")
 	private String ville;
+	@NotEmpty(message="Ajouter un nom")
 	private String nom;
+	@NotEmpty(message="Ajouter un prénom")
 	private String prenom;
 	@OneToOne
 	@JoinColumn(name = "connexion_id")

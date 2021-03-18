@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import zerogaspi.dao.IEntreprise;
 import zerogaspi.dao.ILot;
-import zerogaspi.dao.ILot;
+import zerogaspi.model.Entreprise;
 import zerogaspi.model.Lot;
 
 @RestController
@@ -29,11 +30,14 @@ public class LotApiRestController {
 
 	@Autowired
 	private ILot lotDao;
+	
+	@Autowired
+	private IEntreprise entrepriseDao;
 
 	@GetMapping("")
 	public List<Lot> list() {
-		List<Lot> Lots = lotDao.findAll();
-		return Lots;
+		List<Lot> lots = lotDao.findAll();
+		return lots;
 	}
 
 	@GetMapping("/{id}")
@@ -49,21 +53,21 @@ public class LotApiRestController {
 	
 
 	@PostMapping("")
-	public Lot create(Lot Lot) {	
-		Lot = lotDao.save(Lot);
+	public Lot create(Lot lot) {	
+		lot = lotDao.save(lot);
 
-		return Lot;
+		return lot;
 	}
 
 	@PutMapping("/{id}")
-	public Lot update(@RequestBody Lot Lot, @PathVariable Long id) {
-		if (!lotDao.existsById(id) || !id.equals(Lot.getId())) {
+	public Lot update(@RequestBody Lot lot, @PathVariable Long id) {
+		if (!lotDao.existsById(id) || !id.equals(lot.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		Lot = lotDao.save(Lot);
+		lot = lotDao.save(lot);
 
-		return Lot;
+		return lot;
 	}
 
 	@PatchMapping("/{id}")
@@ -72,7 +76,7 @@ public class LotApiRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		final Lot LotFind = lotDao.findById(id).get();
+		final Lot lotFind = lotDao.findById(id).get();
 
 		updates.forEach((key, value) -> {
 			Field field = ReflectionUtils.findField(Lot.class, key);
@@ -80,9 +84,9 @@ public class LotApiRestController {
 			ReflectionUtils.setField(field, Lot.class, value);
 		});
 
-		Lot LotUpdate = lotDao.save(LotFind);
+		Lot lotUpdate = lotDao.save(lotFind);
 
-		return LotUpdate;
+		return lotUpdate;
 	}
 
 	@DeleteMapping("/{id}")
@@ -96,5 +100,14 @@ public class LotApiRestController {
 		if (lotDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
+	}
+	
+	@GetMapping("/entreprise/{entreprise}")
+	public List<Lot> findByEntreprise(@PathVariable Entreprise entreprise) {
+		if(entrepriseDao.existsById(entreprise.getId())) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
+		}
+		List<Lot> lots = lotDao.findByEntreprise(entreprise);
+		return lots;
 	}
 }

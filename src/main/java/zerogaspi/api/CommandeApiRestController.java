@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 import zerogaspi.dao.ICommande;
+import zerogaspi.dao.ICommandeGratuite;
 import zerogaspi.dao.ICommandePayante;
 import zerogaspi.model.Commande;
+import zerogaspi.model.CommandeGratuite;
 import zerogaspi.model.IViews;
 import zerogaspi.model.CommandePayante;
 
@@ -31,6 +33,8 @@ public class CommandeApiRestController {
 	private ICommande commandeDao;
 	@Autowired
 	private ICommandePayante commandePayanteDao;
+	@Autowired
+	private ICommandeGratuite commandeGratuiteDao;
 
 	@GetMapping("")
 	@JsonView(IViews.IViewCommande.class)
@@ -152,7 +156,61 @@ public class CommandeApiRestController {
 	
 	@GetMapping("/payante/findby/dateArrivee/asc")
 	public List<CommandePayante> findCpByDateArriveeAsc() {
-		List <CommandePayante> commandes = commandePayanteDao.findCpByDateArriveeAsc();
+		List <CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieAsc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+
+	@GetMapping("/gratuite/findby/dateEnvoie/desc")
+	public List<CommandeGratuite> findCgByDateEnvoieDesc() {
+		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieDesc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+
+	@GetMapping("/gratuite/findby/dateEnvoie/asc")
+	public List<CommandeGratuite> findCgByDateEnvoieAsc() {
+		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieAsc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+	
+	@GetMapping("/gratuite/findby/datePaiement/desc")
+	public List<CommandeGratuite> findCgByDatePaiementDesc() {
+		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementDesc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+	
+	@GetMapping("/gratuite/findby/datePaiement/asc")
+	public List<CommandeGratuite> findCgByDatePaiementAsc() {
+		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementAsc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+
+	@GetMapping("/gratuite/findby/dateArrivee/desc")
+	public List<CommandeGratuite> findCgByDateArriveeDesc() {
+		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeDesc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+	
+	@GetMapping("/gratuite/findby/dateArrivee/asc")
+	public List<CommandeGratuite> findCgByDateArriveeAsc() {
+		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeAsc();
 		if(commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}

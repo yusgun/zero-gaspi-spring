@@ -10,17 +10,21 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "facture")
 public class Facture {
 	
 	@Id
 	@GeneratedValue
+	@JsonView(IViews.IViewBasic.class)
 	private Long id;
 	
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "commande_id")
+	@JsonView(IViews.IViewBasic.class)
 	private Commande commande;
 
 	

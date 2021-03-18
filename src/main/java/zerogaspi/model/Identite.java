@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "identite")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -19,21 +21,29 @@ public abstract class Identite {
 
 	@Id
 	@GeneratedValue
+	@JsonView(IViews.IViewBasic.class)
 	private Long id;
 	@NotEmpty(message="Ajouter un numéro de téléphone")
+	@JsonView(IViews.IViewBasic.class)
 	private String numeroTelephone;
 	@NotEmpty(message="Ajouter une adresse (sans CP et la ville)")
+	@JsonView(IViews.IViewBasic.class)
 	private String rue;
 	@NotEmpty(message="Ajouter un code postal")
+	@JsonView(IViews.IViewBasic.class)
 	private String codePostal;
 	@NotEmpty(message="Ajouter un code postal")
+	@JsonView(IViews.IViewBasic.class)
 	private String ville;
 	@NotEmpty(message="Ajouter un nom")
+	@JsonView(IViews.IViewBasic.class)
 	private String nom;
 	@NotEmpty(message="Ajouter un prénom")
+	@JsonView(IViews.IViewBasic.class)
 	private String prenom;
 	@OneToOne
 	@JoinColumn(name = "connexion_id")
+	@JsonView(IViews.IViewBasic.class)
 	private Connexion connexion;
 	
 	

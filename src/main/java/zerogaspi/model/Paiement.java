@@ -12,16 +12,21 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name="paiement")
 public class Paiement {
 	@Id
 	@GeneratedValue
+	@JsonView(IViews.IViewBasic.class)
 	private Long id;
 	@Temporal(TemporalType.DATE)
+	@JsonView(IViews.IViewBasic.class)
 	private Date horodatage;
 	@OneToOne
 	@JoinColumn(name="commande_payante_id")
+	@JsonView(IViews.IViewBasic.class)
 	private CommandePayante commandePayante;
 	
 	public Paiement() {

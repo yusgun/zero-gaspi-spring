@@ -11,12 +11,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "vendeur")
 @DiscriminatorValue("vendeur")
 public class Vendeur extends Identite {
 
 	@Temporal(TemporalType.DATE)
+	@JsonView(IViews.IViewBasic.class)
 	private Date horaire;
 	
 	

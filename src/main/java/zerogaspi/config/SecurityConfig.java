@@ -1,4 +1,4 @@
-package zerogaspi.service;
+package zerogaspi.config;
 
 public class SecurityConfig {
 

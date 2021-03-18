@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ReflectionUtils;
@@ -18,18 +17,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+<<<<<<< Updated upstream
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+=======
+>>>>>>> Stashed changes
 import zerogaspi.dao.ICommande;
+import zerogaspi.dao.ICommandePayante;
 import zerogaspi.model.Commande;
+<<<<<<< Updated upstream
 import zerogaspi.model.IViews;
+=======
+import zerogaspi.model.CommandePayante;
+>>>>>>> Stashed changes
 
 @RestController
 @RequestMapping("/api/commande")
 public class CommandeApiRestController {
 	@Autowired
 	private ICommande commandeDao;
+	@Autowired
+	private ICommandePayante commandePayanteDao;
 
 	@GetMapping("")
 	@JsonView(IViews.IViewCommande.class)
@@ -50,11 +59,14 @@ public class CommandeApiRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
-	
 
 	@PostMapping("")
+<<<<<<< Updated upstream
 	@JsonView(IViews.IViewCommande.class)
 	public Commande create(Commande Commande) {	
+=======
+	public Commande create(Commande Commande) {
+>>>>>>> Stashed changes
 		Commande = commandeDao.save(Commande);
 
 		return Commande;
@@ -104,4 +116,61 @@ public class CommandeApiRestController {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 	}
+
+	@GetMapping("/payante/findby/dateEnvoie/desc")
+	public List<CommandePayante> findCpByDateEnvoieDesc() {
+		List <CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieDesc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+
+	@GetMapping("/payante/findby/dateEnvoie/asc")
+	public List<CommandePayante> findCpByDateEnvoieAsc() {
+		List <CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieAsc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+	
+	@GetMapping("/payante/findby/datePaiement/desc")
+	public List<CommandePayante> findCpByDatePaiementDesc() {
+		List <CommandePayante> commandes = commandePayanteDao.findCpByDatePaiementDesc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+	
+	@GetMapping("/payante/findby/datePaiement/asc")
+	public List<CommandePayante> findCpByDatePaiementAsc() {
+		List <CommandePayante> commandes = commandePayanteDao.findCpByDatePaiementAsc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+
+	@GetMapping("/payante/findby/dateArrivee/desc")
+	public List<CommandePayante> findCpByDateArriveeDesc() {
+		List <CommandePayante> commandes = commandePayanteDao.findCpByDateArriveeDesc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+	
+	@GetMapping("/payante/findby/dateArrivee/asc")
+	public List<CommandePayante> findCpByDateArriveeAsc() {
+		List <CommandePayante> commandes = commandePayanteDao.findCpByDateArriveeAsc();
+		if(commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
+
+	
 }
+

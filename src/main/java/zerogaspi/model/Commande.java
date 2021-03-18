@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name="commande")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="type_commande")
-public class Commande {
+public abstract class Commande {
 	
 	@Id
 	@GeneratedValue

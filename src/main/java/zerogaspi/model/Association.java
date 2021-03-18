@@ -5,11 +5,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonView;
-
-
-
 
 @Entity
 @Table(name="association")
@@ -18,13 +16,14 @@ public class Association extends Client{
 	@GeneratedValue
 	@JsonView(IViews.IViewBasic.class)
 	private Long id;
-	@Column(name= "libelle", length = 255 )
+	@Column(name= "libelle", length = 255)
+	@NotEmpty(message="Entrer un libelle")
 	@JsonView(IViews.IViewBasic.class)
 	private String libelle;
 	@Column(name="numero_rna", length = 45)
+	@NotEmpty(message="Entrer le numero RNA de l'assocation")
 	@JsonView(IViews.IViewBasic.class)
 	private int numero;
-	
 	
 	public Association() {
 		super();

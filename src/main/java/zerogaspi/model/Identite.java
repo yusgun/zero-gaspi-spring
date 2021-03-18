@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -24,6 +25,7 @@ public abstract class Identite {
 	@JsonView(IViews.IViewBasic.class)
 	private Long id;
 	@NotEmpty(message="Ajouter un numéro de téléphone")
+	@Pattern(regexp="^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$", message = "numéro de téléphone invalide")
 	@JsonView(IViews.IViewBasic.class)
 	private String numeroTelephone;
 	@NotEmpty(message="Ajouter une adresse (sans CP et la ville)")
@@ -31,6 +33,7 @@ public abstract class Identite {
 	private String rue;
 	@NotEmpty(message="Ajouter un code postal")
 	@JsonView(IViews.IViewBasic.class)
+	@Pattern(regexp="^(([1-95]{2}|2A|2B)[0-9]{3})$|^[971-974]$", message = "Code postal invalide")
 	private String codePostal;
 	@NotEmpty(message="Ajouter un code postal")
 	@JsonView(IViews.IViewBasic.class)

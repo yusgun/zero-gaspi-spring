@@ -6,12 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+
+
 
 @Entity
 @Table(name="association")
 @DiscriminatorValue("association")
 public class Association extends Client{
-	
+	@JsonView(IViews.IViewBasic.class)
 	@GeneratedValue
 	private Long id;
 	@Column(name= "libelle", length = 255 )

@@ -47,6 +47,18 @@ public class EntrepriseApiRestController {
 		}
 	}
 	
+	@GetMapping("/findby/{search}")
+	public List<Object[]> findByOptionnal(@PathVariable String search) {
+		if (search.equals("") || search.equals(null)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		List<Object[]> optEntreprise = entrepriseDao.findByNomOrCPOrVille(search);
+		return  optEntreprise;
+		
+	
+	}
+	
+	
 
 	@PostMapping("")
 	public Entreprise create(Entreprise Entreprise) {	

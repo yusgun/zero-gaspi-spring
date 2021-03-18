@@ -35,9 +35,9 @@ public class EntrepriseTest {
 	 * Table : Entreprise avec jointure vendeur qui hérite d'identité
 	 */
 	public void entrepriseFindByVilleOrCPOrNom() throws ParseException {
-		int sizeStart1 = entrepriseDao.findByNomOrCPOrVille("Boulangerie", "","").size();
-		int sizeStart2 = entrepriseDao.findByNomOrCPOrVille("", "Lille","").size();
-		int sizeStart3 = entrepriseDao.findByNomOrCPOrVille("", "","59000").size();
+		int sizeStart1 = entrepriseDao.findByNomOrCPOrVille("Boulangerie").size();
+		int sizeStart2 = entrepriseDao.findByNomOrCPOrVille("Lille").size();
+		int sizeStart3 = entrepriseDao.findByNomOrCPOrVille("59000").size();
 		
 		Connexion connexion = new Connexion("toto@toto.com", "azertyui123");
 		connexion = connexionDao.save(connexion);
@@ -57,9 +57,9 @@ public class EntrepriseTest {
 		entreprise2 = entrepriseDao.save(entreprise2);
 		
 		
-		int sizeEnd1 = entrepriseDao.findByNomOrCPOrVille("Boulangerie", "","").size();
-		int sizeEnd2 = entrepriseDao.findByNomOrCPOrVille("", "Lille","").size();
-		int sizeEnd3 = entrepriseDao.findByNomOrCPOrVille("", "","59000").size();
+		int sizeEnd1 = entrepriseDao.findByNomOrCPOrVille("Boulangerie").size();
+		int sizeEnd2 = entrepriseDao.findByNomOrCPOrVille("Lille").size();
+		int sizeEnd3 = entrepriseDao.findByNomOrCPOrVille("59000").size();
 		
 		assertEquals(2, sizeEnd1 - sizeStart1);
 		assertEquals(2, sizeEnd2 - sizeStart2);

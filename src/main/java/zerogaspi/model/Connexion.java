@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 
 @Entity
 @Table(name="connexion")
@@ -16,11 +18,15 @@ public class Connexion {
 	
 	@Id
 	@GeneratedValue
+	@JsonView(IViews.IViewBasic.class)
 	private Long id;
 	@Column(unique=true)
+	@JsonView(IViews.IViewBasic.class)
 	private String mail;
+	@JsonView(IViews.IViewBasic.class)
 	private String motDePasse;
 	@OneToMany(mappedBy = "connexion")
+	@JsonView(IViews.IViewBasic.class)
 	private Set<ConnexionRole> roles;
 
 	

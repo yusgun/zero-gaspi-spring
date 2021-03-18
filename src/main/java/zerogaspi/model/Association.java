@@ -15,12 +15,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name="association")
 @DiscriminatorValue("association")
 public class Association extends Client{
-	@JsonView(IViews.IViewBasic.class)
 	@GeneratedValue
+	@JsonView(IViews.IViewBasic.class)
 	private Long id;
 	@Column(name= "libelle", length = 255 )
+	@JsonView(IViews.IViewBasic.class)
 	private String libelle;
 	@Column(name="numero_rna", length = 45)
+	@JsonView(IViews.IViewBasic.class)
 	private int numero;
 	
 	

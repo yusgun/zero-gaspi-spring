@@ -8,18 +8,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name="entreprise")
 public class Entreprise {
 
 	@Id
 	@GeneratedValue
+	@JsonView(IViews.IViewBasic.class)
 	private Long id;
+	@JsonView(IViews.IViewBasic.class)
 	private String numeroSiret;
+	@JsonView(IViews.IViewBasic.class)
 	private String typeRestauration;
+	@JsonView(IViews.IViewBasic.class)
 	private String nomEntreprise;
 	@OneToOne
 	@JoinColumn(name="vendeur_id")
+	@JsonView(IViews.IViewBasic.class)
 	private Vendeur vendeur;
 	
 	public Entreprise() {

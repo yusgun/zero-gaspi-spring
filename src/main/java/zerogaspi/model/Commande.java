@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name="commande")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -22,20 +24,26 @@ public class Commande {
 	
 	@Id
 	@GeneratedValue
+	@JsonView(IViews.IViewBasic.class)
 	private Long id;
 	@Temporal(TemporalType.DATE)
+	@JsonView(IViews.IViewBasic.class)
 	private Date datePaiement;
 	@Temporal(TemporalType.DATE)
+	@JsonView(IViews.IViewBasic.class)
 	private Date dateEnvoie;
 	@Temporal(TemporalType.DATE)
+	@JsonView(IViews.IViewBasic.class)
 	private Date dateArrivee;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "lot_id")
+	@JsonView(IViews.IViewBasic.class)
 	private Lot lot;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "facture_id")
+	@JsonView(IViews.IViewBasic.class)
 	private Facture facture;
 	
 	

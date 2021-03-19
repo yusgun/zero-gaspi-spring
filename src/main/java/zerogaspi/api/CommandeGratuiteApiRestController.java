@@ -58,7 +58,7 @@ public class CommandeGratuiteApiRestController {
 	}
 
 	@PostMapping("")
-	@JsonView(IViews.IViewCommandeGratuiteWithLot.class)
+	@JsonView(IViews.IViewCommandeGratuite.class)
 	public CommandeGratuite create(@Valid @RequestBody CommandeGratuite Commandegratuite, BindingResult result) {
 		Commandegratuite = commandeGratuiteDao.save(Commandegratuite);
 
@@ -66,7 +66,7 @@ public class CommandeGratuiteApiRestController {
 	}
 
 	@PutMapping("/{id}")
-	@JsonView(IViews.IViewCommandeGratuiteWithLot.class)
+	@JsonView(IViews.IViewCommandeGratuite.class)
 	public CommandeGratuite update(@Valid @RequestBody CommandeGratuite Commandegratuite, @PathVariable Long id,
 			BindingResult result) {
 		if (!commandeGratuiteDao.existsById(id) || !id.equals(Commandegratuite.getId())) {
@@ -84,7 +84,7 @@ public class CommandeGratuiteApiRestController {
 	}
 
 	@PatchMapping("/{id}")
-	@JsonView(IViews.IViewCommandeGratuiteWithLot.class)
+	@JsonView(IViews.IViewCommandeGratuite.class)
 	public CommandeGratuite partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!commandeGratuiteDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

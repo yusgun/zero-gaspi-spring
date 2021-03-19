@@ -58,7 +58,7 @@ public class CommandePayanteApiRestController {
 	}
 
 	@PostMapping("")
-	@JsonView(IViews.IViewCommandePayanteWithLot.class)
+	@JsonView(IViews.IViewCommandePayante.class)
 	public CommandePayante create(@Valid @RequestBody CommandePayante CommandePayante, BindingResult result) {
 		if (result.hasErrors()) {
 			StringJoiner errors = new StringJoiner("\n");
@@ -72,7 +72,7 @@ public class CommandePayanteApiRestController {
 	}
 
 	@PutMapping("/{id}")
-	@JsonView(IViews.IViewCommandePayanteWithLot.class)
+	@JsonView(IViews.IViewCommandePayante.class)
 	public CommandePayante update(@Valid @RequestBody CommandePayante CommandePayante, @PathVariable Long id,
 			BindingResult result) {
 		if (!CommandePayanteDao.existsById(id) || !id.equals(CommandePayante.getId())) {
@@ -90,7 +90,7 @@ public class CommandePayanteApiRestController {
 	}
 
 	@PatchMapping("/{id}")
-	@JsonView(IViews.IViewCommandePayanteWithLot.class)
+	@JsonView(IViews.IViewCommandePayante.class)
 	public CommandePayante partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!CommandePayanteDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

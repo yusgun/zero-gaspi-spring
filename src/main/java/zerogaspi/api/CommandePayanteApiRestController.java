@@ -38,7 +38,7 @@ public class CommandePayanteApiRestController {
 	private ICommandePayante CommandePayanteDao;
 
 	@GetMapping("")
-	@JsonView(IViews.IViewCommandePayante.class)
+	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> list() {
 		List<CommandePayante> Commandes = CommandePayanteDao.findAll();
 

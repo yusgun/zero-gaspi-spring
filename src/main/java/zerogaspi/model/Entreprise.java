@@ -26,7 +26,7 @@ public class Entreprise {
 	private String nomEntreprise;
 	@OneToOne
 	@JoinColumn(name="vendeur_id")
-	@JsonView(IViews.IViewBasic.class)
+	@JsonView(IViews.IViewEntrepriseWithVendeur.class)
 	private Vendeur vendeur;
 	
 	public Entreprise() {

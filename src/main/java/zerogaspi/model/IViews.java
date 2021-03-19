@@ -36,6 +36,8 @@ public interface IViews {
 	
 	public static interface IViewEntrepriseDetail extends IViewEntreprise {}
 	
+	public static interface IViewEntrepriseWithVendeur extends IViewBasic {}
+	
 	public static interface IViewFacture extends IViewBasic {}
 	
 	public static interface IViewFactureDetail extends IViewFacture {}

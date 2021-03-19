@@ -52,7 +52,7 @@ public class EntrepriseApiRestController {
 	}
 	
 	@GetMapping("/findby/{search}")
-	@JsonView(IViews.IViewEntreprise.class)
+	@JsonView(IViews.IViewEntrepriseWithVendeur.class)
 	public List<Object[]> findByOptionnal(@PathVariable String search) {
 		if (search.equals("") || search.equals(null)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);

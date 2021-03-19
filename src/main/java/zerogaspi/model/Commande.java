@@ -38,7 +38,7 @@ public abstract class Commande {
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "lot_id")
-	@JsonView(IViews.IViewCommandeWithLotAndFacture.class)
+	@JsonView(IViews.IViewCommandeWithLot.class)
 	private Lot lot;
 	
 	@OneToOne(fetch = FetchType.EAGER)

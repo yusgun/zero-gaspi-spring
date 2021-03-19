@@ -189,7 +189,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/dateEnvoie/desc")
-	@JsonView(IViews.IViewCommandeGratuite.class)
+	@JsonView(IViews.IViewCommandeGratuiteWithFacture.class)
 	public List<CommandeGratuite> findCgByDateEnvoieDesc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieDesc();
 		if (commandes.size() == 0) {
@@ -199,7 +199,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/dateEnvoie/asc")
-	@JsonView(IViews.IViewCommandeGratuite.class)
+	@JsonView(IViews.IViewCommandeGratuiteWithFacture.class)
 	public List<CommandeGratuite> findCgByDateEnvoieAsc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieAsc();
 		if (commandes.size() == 0) {
@@ -209,7 +209,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/datePaiement/desc")
-	@JsonView(IViews.IViewCommandeGratuite.class)
+	@JsonView(IViews.IViewCommandeGratuiteWithFacture.class)
 	public List<CommandeGratuite> findCgByDatePaiementDesc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementDesc();
 		if (commandes.size() == 0) {
@@ -219,7 +219,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/datePaiement/asc")
-	@JsonView(IViews.IViewCommandeGratuite.class)
+	@JsonView(IViews.IViewCommandeGratuiteWithFacture.class)
 	public List<CommandeGratuite> findCgByDatePaiementAsc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementAsc();
 		if (commandes.size() == 0) {
@@ -229,7 +229,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/dateArrivee/desc")
-	@JsonView(IViews.IViewCommandeGratuite.class)
+	@JsonView(IViews.IViewCommandeGratuiteWithFacture.class)
 	public List<CommandeGratuite> findCgByDateArriveeDesc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeDesc();
 		if (commandes.size() == 0) {
@@ -239,7 +239,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/dateArrivee/asc")
-	@JsonView(IViews.IViewCommandeGratuite.class)
+	@JsonView(IViews.IViewCommandeGratuiteWithFacture.class)
 	public List<CommandeGratuite> findCgByDateArriveeAsc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeAsc();
 		if (commandes.size() == 0) {

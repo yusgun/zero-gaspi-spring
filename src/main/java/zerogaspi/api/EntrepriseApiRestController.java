@@ -33,6 +33,7 @@ import zerogaspi.model.IViews;
 @RestController
 @RequestMapping("/entreprise")
 public class EntrepriseApiRestController {
+	
 	@Autowired
 	private IEntreprise entrepriseDao;
 

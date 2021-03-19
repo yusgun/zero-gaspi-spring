@@ -24,9 +24,13 @@ public interface IViews {
 	
 	public static interface IViewCommandeGratuiteWithLot extends IViewCommandeGratuite, IViewCommandeWithLot {}
 	
+	public static interface IViewCommandeGratuiteWithFacture extends IViewCommandeWithFacture, IViewCommandeGratuite, IViewCommandeWithLot {}
+	
 	public static interface IViewCommandePayante extends IViewBasic {}
 	
 	public static interface IViewCommandePayanteWithLot extends IViewCommandePayante, IViewCommandeWithLot {}
+	
+	public static interface IViewCommandePayanteWithFacture extends IViewCommandeWithFacture, IViewCommandePayante, IViewCommandeWithLot {}
 	
 	public static interface IViewConnexion extends IViewBasic {}
 	

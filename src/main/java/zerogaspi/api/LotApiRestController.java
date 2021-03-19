@@ -38,7 +38,7 @@ public class LotApiRestController {
 	private IEntreprise entrepriseDao;
 
 	@GetMapping("")
-	@JsonView(IViews.IViewLot.class)
+	@JsonView(IViews.IViewLotWithEntreprise.class)
 	public List<Lot> list() {
 		List<Lot> lots = lotDao.findAll();
 		return lots;

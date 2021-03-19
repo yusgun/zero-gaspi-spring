@@ -46,7 +46,7 @@ public class CommandeApiRestController {
 	private ICommandeGratuite commandeGratuiteDao;
 
 	@GetMapping("")
-	@JsonView(IViews.IViewCommande.class)
+	@JsonView(IViews.IViewCommandeWithLotAndFacture.class)
 	public List<Commande> list() {
 		List<Commande> Commandes = commandeDao.findAll();
 
@@ -54,7 +54,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(IViews.IViewCommande.class)
+	@JsonView(IViews.IViewCommandeWithLotAndFacture.class)
 	public Commande find(@PathVariable Long id) {
 		Optional<Commande> optCommande = commandeDao.findById(id);
 

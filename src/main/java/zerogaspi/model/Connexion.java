@@ -2,34 +2,31 @@ package zerogaspi.model;
 
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 
 @Entity
-@Table(name="connexion")
+@Table(name="connexion", uniqueConstraints = {@UniqueConstraint(columnNames = {"mail"})})
 public class Connexion {
 	
 	@Id
 	@GeneratedValue
 	@JsonView(IViews.IViewBasic.class)
 	private Long id;
-	@Column(unique=true)
 	@Email
 	@NotEmpty(message="Entrer l'email")
 	@JsonView(IViews.IViewBasic.class)
 	private String mail;
 	@NotEmpty(message="Entrer le mot de passe")
-	@Min(value = 8, message="Le mot de passe doit contenir au moins 8 caractères")
 	@JsonView(IViews.IViewBasic.class)
 	private String motDePasse;
 	@OneToMany(mappedBy = "connexion")

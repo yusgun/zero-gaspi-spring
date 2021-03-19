@@ -4,10 +4,15 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.StringJoiner;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -50,11 +55,17 @@ public class ConnexionApiRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
-	
 
 	@PostMapping("")
 	@JsonView(IViews.IViewConnexion.class)
-	public Connexion create(Connexion Connexion) {	
+	public Connexion create(@Valid @RequestBody Connexion Connexion, BindingResult result) {
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		Connexion = connexionDao.save(Connexion);
 
 		return Connexion;
@@ -62,11 +73,17 @@ public class ConnexionApiRestController {
 
 	@PutMapping("/{id}")
 	@JsonView(IViews.IViewConnexion.class)
-	public Connexion update(@RequestBody Connexion Connexion, @PathVariable Long id) {
+	public Connexion update(@Valid @RequestBody Connexion Connexion, @PathVariable Long id, BindingResult result) {
 		if (!connexionDao.existsById(id) || !id.equals(Connexion.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
-
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		Connexion = connexionDao.save(Connexion);
 
 		return Connexion;

@@ -125,6 +125,7 @@ public class FavorisApiRestController {
 	}
 
 	@GetMapping("/findby/client/{id}")
+	@JsonView(IViews.IViewListeFavoriWithEntreprise.class)
 	public List<Object[]> findByClient(@PathVariable Long id) {
 		if (!clientDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

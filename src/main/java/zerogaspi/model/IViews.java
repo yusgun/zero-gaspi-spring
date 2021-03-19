@@ -20,6 +20,8 @@ public interface IViews {
 	
 	public static interface IViewCommandeWithFacture extends IViewCommande {}
 	
+	public static interface IViewCommandeWithLotAndFacture extends IViewCommandeWithLot,IViewCommandeWithFacture {}
+	
 	
 	
 	public static interface IViewCommandeGratuite extends IViewCommande {}
@@ -34,9 +36,10 @@ public interface IViews {
 	
 	public static interface IViewCommandePayanteWithLot extends IViewCommandePayante, IViewCommandeWithLot {}
 	
+	public static interface IViewCommandePayanteWithFacture extends IViewCommandePayante, IViewCommandeWithFacture {}
+	
 	public static interface IViewCommandePayanteWithLotAndFacture extends IViewCommandePayanteWithLot, IViewCommandeWithFacture, IViewCommandePayante {}
 	
-	public static interface IViewCommandeWithLotAndFacture extends IViewCommande,IViewCommandeWithLot,IViewCommandeWithFacture {}
 	
 	public static interface IViewConnexion extends IViewBasic {}
 	

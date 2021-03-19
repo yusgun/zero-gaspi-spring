@@ -40,22 +40,31 @@ public interface IViews {
 	
 	public static interface IViewFactureDetail extends IViewFacture {}
 	
+	public static interface IViewFactureWithCommande extends IViewFacture {}
 	
 	public static interface IViewIdentite extends IViewBasic {}
 	
 	public static interface IViewIdentiteDetail extends IViewIdentite {}
 	
+	public static interface IViewIdentiteWithConnexion extends IViewIdentite {}
+	
 	public static interface IViewListeFavori extends IViewBasic {}
 	
 	public static interface IViewListeFavoriDetail extends IViewListeFavori {}
+	
+	public static interface IViewListeFavoriWithEntreprise extends IViewListeFavori {}
 	
 	public static interface IViewLot extends IViewBasic {}
 	
 	public static interface IViewLotDetail extends IViewLot {}
 	
+	public static interface IViewLotWithEntreprise extends IViewLot {}
+	
 	public static interface IViewPaiement extends IViewBasic {}
 	
 	public static interface IViewPaiementDetail extends IViewPaiement {}
+	
+	public static interface IViewPaiementWithCommandePayante extends IViewPaiement {}
 	
 	public static interface IViewParticulier extends IViewBasic {}
 	

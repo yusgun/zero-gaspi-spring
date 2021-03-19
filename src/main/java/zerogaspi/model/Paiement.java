@@ -26,7 +26,7 @@ public class Paiement {
 	private Date horodatage;
 	@OneToOne
 	@JoinColumn(name="commande_payante_id")
-	@JsonView(IViews.IViewBasic.class)
+	@JsonView(IViews.IViewPaiementWithCommandePayante.class)
 	private CommandePayante commandePayante;
 	
 	public Paiement() {

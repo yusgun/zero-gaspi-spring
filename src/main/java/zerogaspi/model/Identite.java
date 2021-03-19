@@ -46,7 +46,7 @@ public abstract class Identite {
 	private String prenom;
 	@OneToOne
 	@JoinColumn(name = "connexion_id")
-	@JsonView(IViews.IViewBasic.class)
+	@JsonView(IViews.IViewIdentiteWithConnexion.class)
 	private Connexion connexion;
 	
 	

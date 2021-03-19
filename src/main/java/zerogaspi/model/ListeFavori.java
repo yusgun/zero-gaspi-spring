@@ -20,11 +20,11 @@ public class ListeFavori {
 	private Long id;
 	@OneToOne
 	@JoinColumn(name= "client_id")
-	@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
+	@JsonView(IViews.IViewListeFavoriWithClient.class)
 	private Client client;
 	@OneToOne
 	@JoinColumn(name="entreprise_id")
-	@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
+	@JsonView(IViews.IViewListeFavoriWithEntreprise.class)
 	private Entreprise entreprise;
 	public ListeFavori() {
 		super();

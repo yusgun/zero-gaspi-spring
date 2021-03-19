@@ -30,7 +30,7 @@ public class Connexion {
 	@JsonView(IViews.IViewBasic.class)
 	private String motDePasse;
 	@OneToMany(mappedBy = "connexion")
-	//@JsonView(IViews.IViewBasic.class)
+	
 	private Set<ConnexionRole> roles;
 
 	

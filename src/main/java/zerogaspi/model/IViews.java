@@ -20,13 +20,15 @@ public interface IViews {
 	
 	public static interface IViewCommandeWithFacture extends IViewCommande {}
 	
-	public static interface IViewCommandeGratuite extends IViewBasic {}
+	public static interface IViewCommandeGratuite extends IViewCommande {}
 	
-	public static interface IViewCommandeGratuiteDetail extends IViewCommandeGratuite {}
+	public static interface IViewCommandeGratuiteWithLot extends IViewCommandeGratuite, IViewCommandeWithLot {}
 	
 	public static interface IViewCommandePayante extends IViewBasic {}
 	
 	public static interface IViewCommandePayanteDetail extends IViewCommandePayante {}
+	
+	public static interface IViewCommandePayanteWithLot extends IViewCommandePayante, IViewCommandeWithLot {}
 	
 	public static interface IViewConnexion extends IViewBasic {}
 	
@@ -42,31 +44,22 @@ public interface IViews {
 	
 	public static interface IViewFactureDetail extends IViewFacture {}
 	
-	public static interface IViewFactureWithCommande extends IViewFacture {}
 	
 	public static interface IViewIdentite extends IViewBasic {}
 	
 	public static interface IViewIdentiteDetail extends IViewIdentite {}
 	
-	public static interface IViewIdentiteWithConnexion extends IViewIdentite {}
-	
 	public static interface IViewListeFavori extends IViewBasic {}
 	
 	public static interface IViewListeFavoriDetail extends IViewListeFavori {}
-	
-	public static interface IViewListeFavoriWithEntreprise extends IViewListeFavori {}
 	
 	public static interface IViewLot extends IViewBasic {}
 	
 	public static interface IViewLotDetail extends IViewLot {}
 	
-	public static interface IViewLotWithEntreprise extends IViewLot {}
-	
 	public static interface IViewPaiement extends IViewBasic {}
 	
 	public static interface IViewPaiementDetail extends IViewPaiement {}
-	
-	public static interface IViewPaiementWithCommandePayante extends IViewPaiement {}
 	
 	public static interface IViewParticulier extends IViewBasic {}
 	

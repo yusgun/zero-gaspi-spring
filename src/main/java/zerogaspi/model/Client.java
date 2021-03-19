@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 @DiscriminatorValue("client")
-public class Client extends Identite {
+public abstract class Client extends Identite {
 
 	@JsonView(IViews.IViewBasic.class)
 	@Column(name = "perimetre")

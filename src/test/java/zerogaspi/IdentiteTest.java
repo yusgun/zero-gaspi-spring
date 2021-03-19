@@ -6,12 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import zerogaspi.dao.IClient;
 import zerogaspi.dao.IConnexion;
 import zerogaspi.dao.IIdentite;
 import zerogaspi.model.Association;
 import zerogaspi.model.Client;
 import zerogaspi.model.Connexion;
 import zerogaspi.model.Identite;
+import zerogaspi.model.Particulier;
 
 @SpringBootTest
 public class IdentiteTest {
@@ -21,6 +23,9 @@ public class IdentiteTest {
 	@Autowired
 	private IConnexion connexionDao;
 	
+	@Autowired
+	IClient clientDao;
+	
 	@Test
 	/**
 	 * Test des identifiants de connexion d'un utilisateur
@@ -29,7 +34,7 @@ public class IdentiteTest {
 	public void identifiantConnexion() {
 		// Création de la connexion et de l'identite
 		Connexion connexion1 = new Connexion("alphonse.denis@email.com", "0123456");
-		Identite identite1 = new Client("0606060606", "5 rue Jules Ferry", "59000", "Lille", "DENIS", "Alphonse", connexion1, 20);
+		Identite identite1 = new Particulier("0606060606", "5 rue Jules Ferry", "59000", "Lille", "DENIS", "Alphonse", connexion1, 20);
 		Connexion connexion2 = new Connexion("AntoinePatenaude@armyspy.com", "Ahgho2aeph9");
 		Identite identite2 = new Association("0108132116", "11 rue du 25 décembre", "57000", "Metz", "Patenaude", "Antoine", connexion2, 15);
 		// Ajout à la base

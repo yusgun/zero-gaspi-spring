@@ -20,6 +20,7 @@ import zerogaspi.model.Connexion;
 import zerogaspi.model.Entreprise;
 import zerogaspi.model.ListeFavori;
 import zerogaspi.model.Lot;
+import zerogaspi.model.Particulier;
 import zerogaspi.model.Vendeur;
 
 @SpringBootTest
@@ -47,7 +48,7 @@ public class FavorisTest {
 	
 	@Test
 	/**
-	 * Listing des entreprises favorites d'un client
+	 * Listing des entreprises favorites d'un client de type particulier
 	 * Table : liste_favori 
 	 */
 	public void listerEntreprisesFavoris() {
@@ -55,11 +56,11 @@ public class FavorisTest {
 		// Création des données nécessaires 
 		Connexion connexion2 = new Connexion("bilel@bilel.com", "dscvddf888");
 		connexion2 = connexionDao.save(connexion2);
-		Client client = new Client("0764585212", "rue des ca", "59200", "adresseouai", "Dupont", "Paul", connexion2 ,20  );
-		client = clientDao.save(client);
+		Particulier particulier = new Particulier("0764585212", "rue des ca", "59200", "adresseouai", "Dupont", "Paul", connexion2 ,20  );
+		particulier = clientDao.save(particulier);
 		
 		// Récupère les données avant ajout
-		List<Object[]> debut = favorisDao.findByClient(client.getId());
+		List<Object[]> debut = favorisDao.findByClient(particulier.getId());
 		Connexion connexion = new Connexion("toto@toto.com", "azertyui123");
 		connexion = connexionDao.save(connexion);
 		Vendeur vendeur = new Vendeur("0645993786","rue bidule","59000","Lille","Nom","Prenom", connexion,new Date());
@@ -70,10 +71,10 @@ public class FavorisTest {
 		entreprise2 = entrepriseDao.save(entreprise2);
 		
 		// Ajout des données dans la liste favori
-		favorisDao.save(new ListeFavori(client, entreprise));
-		favorisDao.save(new ListeFavori(client, entreprise2));
+		favorisDao.save(new ListeFavori(particulier, entreprise));
+		favorisDao.save(new ListeFavori(particulier, entreprise2));
 		// Récupération des entreprises favorites par client
-		List<Object[]> fin = favorisDao.findByClient(client.getId());
+		List<Object[]> fin = favorisDao.findByClient(particulier.getId());
 		
 		// Lancement du test...
 		assertEquals(2,fin.size() - debut.size());

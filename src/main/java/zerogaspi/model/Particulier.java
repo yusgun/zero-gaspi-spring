@@ -10,9 +10,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonView;
 
 
-
 @Entity
-@Table(name="particulier")
 @DiscriminatorValue("particulier")
 public class Particulier extends Client {
 	

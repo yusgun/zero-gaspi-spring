@@ -31,7 +31,8 @@ import zerogaspi.model.Connexion;
 import zerogaspi.model.IViews;
 
 @RestController
-@RequestMapping("/api/connexion")
+// Virer "/api"
+@RequestMapping("/connexion")
 public class ConnexionApiRestController {
 	@Autowired
 	private IConnexion connexionDao;
@@ -58,6 +59,9 @@ public class ConnexionApiRestController {
 
 	@PostMapping("")
 	@JsonView(IViews.IViewConnexion.class)
+	// Ajouter @Valid @RequestBody sur le premier paramètre
+	// Ajouter BindingResult result en 2e paramètre
+	// Ajouter le if avant l'objet du modele
 	public Connexion create(@Valid @RequestBody Connexion Connexion, BindingResult result) {
 		if (result.hasErrors()) {
 			StringJoiner errors = new StringJoiner("\n");
@@ -73,6 +77,8 @@ public class ConnexionApiRestController {
 
 	@PutMapping("/{id}")
 	@JsonView(IViews.IViewConnexion.class)
+	// Ajout @Valid en premier parametre
+	// Ajouter BindingResult result en 2e paramètre
 	public Connexion update(@Valid @RequestBody Connexion Connexion, @PathVariable Long id, BindingResult result) {
 		if (!connexionDao.existsById(id) || !id.equals(Connexion.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

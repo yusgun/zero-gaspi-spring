@@ -38,7 +38,7 @@ public class FactureApiRestController {
 	private IFacture factureDao;
 
 	@GetMapping("")
-	@JsonView(IViews.IViewFacture.class)
+	@JsonView(IViews.IViewFactureWithCommande.class)
 	public List<Facture> list() {
 		List<Facture> Factures = factureDao.findAll();
 
@@ -46,7 +46,7 @@ public class FactureApiRestController {
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(IViews.IViewFacture.class)
+	@JsonView(IViews.IViewFactureWithCommande.class)
 	public Facture find(@PathVariable Long id) {
 		Optional<Facture> optFacture = factureDao.findById(id);
 

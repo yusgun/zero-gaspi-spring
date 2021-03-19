@@ -40,7 +40,7 @@ public class FavorisApiRestController {
 	private IClient clientDao;
 
 	@GetMapping("")
-	@JsonView(IViews.IViewListeFavori.class)
+	@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
 	public List<ListeFavori> list() {
 		List<ListeFavori> Favoris = favorisDao.findAll();
 
@@ -48,7 +48,7 @@ public class FavorisApiRestController {
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(IViews.IViewListeFavori.class)
+	@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
 	public ListeFavori find(@PathVariable Long id) {
 		Optional<ListeFavori> optFavori = favorisDao.findById(id);
 

@@ -63,9 +63,14 @@ public interface IViews {
 	
 	public static interface IViewListeFavori extends IViewBasic {}
 	
+	
 	//public static interface IViewListeFavoriDetail extends IViewListeFavori {}
 	
 	public static interface IViewListeFavoriWithEntreprise extends IViewListeFavori {}
+	
+	public static interface IViewListeFavoriWithClient extends IViewListeFavori {}
+	
+	public static interface IViewListeFavoriWithClientAndEntreprise extends IViewListeFavori,IViewListeFavoriWithEntreprise,IViewListeFavoriWithClient {}
 	
 	public static interface IViewLot extends IViewBasic {}
 	

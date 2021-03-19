@@ -34,6 +34,7 @@ public class IdentiteApiRestController {
 	private IIdentite identiteDao;
 
 	@GetMapping("")
+	@JsonView(IViews.IViewIdentite.class)
 	public List<Identite> list() {
 		List<Identite> Identites = identiteDao.findAll();
 		return Identites;

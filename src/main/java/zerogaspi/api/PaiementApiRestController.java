@@ -36,6 +36,7 @@ public class PaiementApiRestController {
 	private IPaiement paiementDao;
 
 	@GetMapping("")
+	@JsonView(IViews.IViewPaiementWithCommandePayante.class)
 	public List<Paiement> list() {
 		List<Paiement> Paiements = paiementDao.findAll();
 
@@ -43,7 +44,7 @@ public class PaiementApiRestController {
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(IViews.IViewPaiement.class)
+	@JsonView(IViews.IViewPaiementWithCommandePayante.class)
 	public Paiement find(@PathVariable Long id) {
 		Optional<Paiement> optPaiement = paiementDao.findById(id);
 

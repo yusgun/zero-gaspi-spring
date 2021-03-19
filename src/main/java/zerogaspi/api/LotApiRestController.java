@@ -45,7 +45,7 @@ public class LotApiRestController {
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(IViews.IViewLot.class)
+	@JsonView(IViews.IViewLotWithEntreprise.class)
 	public Lot find(@PathVariable Long id) {
 		Optional<Lot> optLot = lotDao.findById(id);
 

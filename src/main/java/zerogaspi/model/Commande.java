@@ -43,7 +43,7 @@ public abstract class Commande {
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "facture_id")
-	@JsonView(IViews.IViewCommandeWithLotAndFacture.class)
+	@JsonView(IViews.IViewCommandeWithFacture.class)
 	private Facture facture;
 	
 	

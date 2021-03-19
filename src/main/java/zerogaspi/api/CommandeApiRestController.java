@@ -110,7 +110,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/payante/findby/dateEnvoie/desc")
-	@JsonView(IViews.IViewCommandePayanteDetail.class)
+	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDateEnvoieDesc() {
 		List <CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieDesc();
 		if(commandes.size() == 0) {
@@ -120,7 +120,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/payante/findby/dateEnvoie/asc")
-	@JsonView(IViews.IViewCommandePayanteDetail.class)
+	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDateEnvoieAsc() {
 		List <CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieAsc();
 		if(commandes.size() == 0) {
@@ -130,7 +130,7 @@ public class CommandeApiRestController {
 	}
 	
 	@GetMapping("/payante/findby/datePaiement/desc")
-	@JsonView(IViews.IViewCommandePayanteDetail.class)
+	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDatePaiementDesc() {
 		List <CommandePayante> commandes = commandePayanteDao.findCpByDatePaiementDesc();
 		if(commandes.size() == 0) {
@@ -140,7 +140,7 @@ public class CommandeApiRestController {
 	}
 	
 	@GetMapping("/payante/findby/datePaiement/asc")
-	@JsonView(IViews.IViewCommandePayanteDetail.class)
+	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDatePaiementAsc() {
 		List <CommandePayante> commandes = commandePayanteDao.findCpByDatePaiementAsc();
 		if(commandes.size() == 0) {
@@ -150,7 +150,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/payante/findby/dateArrivee/desc")
-	@JsonView(IViews.IViewCommandePayanteDetail.class)
+	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDateArriveeDesc() {
 		List <CommandePayante> commandes = commandePayanteDao.findCpByDateArriveeDesc();
 		if(commandes.size() == 0) {
@@ -160,7 +160,7 @@ public class CommandeApiRestController {
 	}
 	
 	@GetMapping("/payante/findby/dateArrivee/asc")
-	@JsonView(IViews.IViewCommandePayanteDetail.class)
+	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDateArriveeAsc() {
 		List <CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieAsc();
 		if(commandes.size() == 0) {

@@ -26,8 +26,6 @@ public interface IViews {
 	
 	public static interface IViewCommandePayante extends IViewBasic {}
 	
-	public static interface IViewCommandePayanteDetail extends IViewCommandePayante {}
-	
 	public static interface IViewCommandePayanteWithLot extends IViewCommandePayante, IViewCommandeWithLot {}
 	
 	public static interface IViewConnexion extends IViewBasic {}

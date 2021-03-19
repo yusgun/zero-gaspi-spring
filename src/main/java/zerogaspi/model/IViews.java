@@ -1,5 +1,6 @@
 package zerogaspi.model;
 
+
 public interface IViews {
 	public static interface IViewBasic {}
 	
@@ -14,6 +15,10 @@ public interface IViews {
 	public static interface IViewCommande extends IViewBasic {}
 	
 	public static interface IViewCommandeDetail extends IViewCommande {}
+	
+	public static interface IViewCommandeWithLot extends IViewCommande {}
+	
+	public static interface IViewCommandeWithFacture extends IViewCommande {}
 	
 	public static interface IViewCommandeGratuite extends IViewBasic {}
 	
@@ -34,6 +39,7 @@ public interface IViews {
 	public static interface IViewFacture extends IViewBasic {}
 	
 	public static interface IViewFactureDetail extends IViewFacture {}
+	
 	
 	public static interface IViewIdentite extends IViewBasic {}
 	

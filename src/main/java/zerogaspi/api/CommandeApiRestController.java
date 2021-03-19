@@ -4,9 +4,15 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.StringJoiner;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,17 +23,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
 import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.ICommande;
 import zerogaspi.dao.ICommandeGratuite;
 import zerogaspi.dao.ICommandePayante;
 import zerogaspi.model.Commande;
 import zerogaspi.model.CommandeGratuite;
-import zerogaspi.model.IViews;
 import zerogaspi.model.CommandePayante;
+import zerogaspi.model.IViews;
 
 @RestController
-@RequestMapping("/api/commande")
+@RequestMapping("/commande")
 public class CommandeApiRestController {
 	@Autowired
 	private ICommande commandeDao;
@@ -58,21 +66,32 @@ public class CommandeApiRestController {
 
 	@PostMapping("")
 	@JsonView(IViews.IViewCommande.class)
-	public Commande create(Commande Commande) {	
+	public Commande create(@Valid @RequestBody Commande Commande, BindingResult result) {
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		Commande = commandeDao.save(Commande);
-
 		return Commande;
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(IViews.IViewCommande.class)
-	public Commande update(@RequestBody Commande Commande, @PathVariable Long id) {
+	public Commande update(@Valid @RequestBody Commande Commande, @PathVariable Long id, BindingResult result) {
 		if (!commandeDao.existsById(id) || !id.equals(Commande.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
-
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		Commande = commandeDao.save(Commande);
-
 		return Commande;
 	}
 
@@ -112,8 +131,8 @@ public class CommandeApiRestController {
 	@GetMapping("/payante/findby/dateEnvoie/desc")
 	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDateEnvoieDesc() {
-		List <CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieDesc();
-		if(commandes.size() == 0) {
+		List<CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieDesc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
@@ -122,28 +141,28 @@ public class CommandeApiRestController {
 	@GetMapping("/payante/findby/dateEnvoie/asc")
 	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDateEnvoieAsc() {
-		List <CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieAsc();
-		if(commandes.size() == 0) {
+		List<CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieAsc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
 	}
-	
+
 	@GetMapping("/payante/findby/datePaiement/desc")
 	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDatePaiementDesc() {
-		List <CommandePayante> commandes = commandePayanteDao.findCpByDatePaiementDesc();
-		if(commandes.size() == 0) {
+		List<CommandePayante> commandes = commandePayanteDao.findCpByDatePaiementDesc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
 	}
-	
+
 	@GetMapping("/payante/findby/datePaiement/asc")
 	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDatePaiementAsc() {
-		List <CommandePayante> commandes = commandePayanteDao.findCpByDatePaiementAsc();
-		if(commandes.size() == 0) {
+		List<CommandePayante> commandes = commandePayanteDao.findCpByDatePaiementAsc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
@@ -152,18 +171,18 @@ public class CommandeApiRestController {
 	@GetMapping("/payante/findby/dateArrivee/desc")
 	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDateArriveeDesc() {
-		List <CommandePayante> commandes = commandePayanteDao.findCpByDateArriveeDesc();
-		if(commandes.size() == 0) {
+		List<CommandePayante> commandes = commandePayanteDao.findCpByDateArriveeDesc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
 	}
-	
+
 	@GetMapping("/payante/findby/dateArrivee/asc")
 	@JsonView(IViews.IViewCommandePayanteWithLot.class)
 	public List<CommandePayante> findCpByDateArriveeAsc() {
-		List <CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieAsc();
-		if(commandes.size() == 0) {
+		List<CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieAsc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
@@ -172,8 +191,8 @@ public class CommandeApiRestController {
 	@GetMapping("/gratuite/findby/dateEnvoie/desc")
 	@JsonView(IViews.IViewCommandeGratuite.class)
 	public List<CommandeGratuite> findCgByDateEnvoieDesc() {
-		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieDesc();
-		if(commandes.size() == 0) {
+		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieDesc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
@@ -182,28 +201,28 @@ public class CommandeApiRestController {
 	@GetMapping("/gratuite/findby/dateEnvoie/asc")
 	@JsonView(IViews.IViewCommandeGratuite.class)
 	public List<CommandeGratuite> findCgByDateEnvoieAsc() {
-		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieAsc();
-		if(commandes.size() == 0) {
+		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieAsc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
 	}
-	
+
 	@GetMapping("/gratuite/findby/datePaiement/desc")
 	@JsonView(IViews.IViewCommandeGratuite.class)
 	public List<CommandeGratuite> findCgByDatePaiementDesc() {
-		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementDesc();
-		if(commandes.size() == 0) {
+		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementDesc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
 	}
-	
+
 	@GetMapping("/gratuite/findby/datePaiement/asc")
 	@JsonView(IViews.IViewCommandeGratuite.class)
 	public List<CommandeGratuite> findCgByDatePaiementAsc() {
-		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementAsc();
-		if(commandes.size() == 0) {
+		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementAsc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
@@ -212,23 +231,21 @@ public class CommandeApiRestController {
 	@GetMapping("/gratuite/findby/dateArrivee/desc")
 	@JsonView(IViews.IViewCommandeGratuite.class)
 	public List<CommandeGratuite> findCgByDateArriveeDesc() {
-		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeDesc();
-		if(commandes.size() == 0) {
+		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeDesc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
 	}
-	
+
 	@GetMapping("/gratuite/findby/dateArrivee/asc")
 	@JsonView(IViews.IViewCommandeGratuite.class)
 	public List<CommandeGratuite> findCgByDateArriveeAsc() {
-		List <CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeAsc();
-		if(commandes.size() == 0) {
+		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeAsc();
+		if (commandes.size() == 0) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
 		return commandes;
 	}
 
-	
 }
-

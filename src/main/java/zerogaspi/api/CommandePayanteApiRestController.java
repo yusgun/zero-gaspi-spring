@@ -1,12 +1,18 @@
 package zerogaspi.api;
+
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.StringJoiner;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,7 +32,7 @@ import zerogaspi.model.CommandePayante;
 import zerogaspi.model.IViews;
 
 @RestController
-@RequestMapping("/api/commandepayante")
+@RequestMapping("/commandepayante")
 public class CommandePayanteApiRestController {
 	@Autowired
 	private ICommandePayante CommandePayanteDao;
@@ -50,25 +56,36 @@ public class CommandePayanteApiRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
-	
 
 	@PostMapping("")
 	@JsonView(IViews.IViewCommandePayanteWithLot.class)
-	public CommandePayante create(CommandePayante CommandePayante) {	
+	public CommandePayante create(@Valid @RequestBody CommandePayante CommandePayante, BindingResult result) {
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		CommandePayante = CommandePayanteDao.save(CommandePayante);
-
 		return CommandePayante;
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(IViews.IViewCommandePayanteWithLot.class)
-	public CommandePayante update(@RequestBody CommandePayante CommandePayante, @PathVariable Long id) {
+	public CommandePayante update(@Valid @RequestBody CommandePayante CommandePayante, @PathVariable Long id,
+			BindingResult result) {
 		if (!CommandePayanteDao.existsById(id) || !id.equals(CommandePayante.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
-
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		CommandePayante = CommandePayanteDao.save(CommandePayante);
-
 		return CommandePayante;
 	}
 

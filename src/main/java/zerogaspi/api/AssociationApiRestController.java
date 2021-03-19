@@ -4,14 +4,15 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import zerogaspi.model.Association;
-import zerogaspi.model.IViews;
-import zerogaspi.model.IViews.IViewAssociation;
-import zerogaspi.model.IViews.IViewBasic;
+import java.util.StringJoiner;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,9 +27,11 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import zerogaspi.dao.IAssociation;
+import zerogaspi.model.Association;
+import zerogaspi.model.IViews;
 
 @RestController
-@RequestMapping("/api/association")
+@RequestMapping("/association")
 public class AssociationApiRestController {
 	
 	@Autowired
@@ -57,21 +60,32 @@ public class AssociationApiRestController {
 
 	@PostMapping("")
 	@JsonView(IViews.IViewAssociation.class)
-	public Association create(Association Association) {	
+	public Association create(@Valid @RequestBody Association Association, BindingResult result) {
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+						errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		Association = associationDao.save(Association);
-
 		return Association;
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(IViews.IViewAssociation.class)
-	public Association update(@RequestBody Association Association, @PathVariable Long id) {
+	public Association update(@Valid @RequestBody Association Association, @PathVariable Long id, BindingResult result) {
 		if (!associationDao.existsById(id) || !id.equals(Association.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
-
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+						errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		Association = associationDao.save(Association);
-
 		return Association;
 	}
 

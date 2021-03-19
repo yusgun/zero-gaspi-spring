@@ -4,10 +4,15 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.StringJoiner;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,7 +31,7 @@ import zerogaspi.model.Client;
 import zerogaspi.model.IViews;
 
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("/client")
 public class ClientApiRestController {
 	@Autowired
 	private IClient clientDao;
@@ -53,21 +58,32 @@ public class ClientApiRestController {
 
 	@PostMapping("")
 	@JsonView(IViews.IViewClient.class)
-	public Client create(Client Client) {
+	public Client create(@Valid @RequestBody Client Client, BindingResult result) {
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		Client = clientDao.save(Client);
-
 		return Client;
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(IViews.IViewClient.class)
-	public Client update(@RequestBody Client Client, @PathVariable Long id) {
+	public Client update(@Valid @RequestBody Client Client, @PathVariable Long id, BindingResult result) {
 		if (!clientDao.existsById(id) || !id.equals(Client.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
-
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		Client = clientDao.save(Client);
-
 		return Client;
 	}
 

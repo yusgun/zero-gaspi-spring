@@ -1,12 +1,18 @@
 package zerogaspi.api;
+
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.StringJoiner;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -24,9 +30,8 @@ import zerogaspi.dao.IEntreprise;
 import zerogaspi.model.Entreprise;
 import zerogaspi.model.IViews;
 
-
 @RestController
-@RequestMapping("/api/entreprise")
+@RequestMapping("/entreprise")
 public class EntrepriseApiRestController {
 	@Autowired
 	private IEntreprise entrepriseDao;
@@ -50,7 +55,7 @@ public class EntrepriseApiRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@GetMapping("/findby/{search}")
 	@JsonView(IViews.IViewEntrepriseWithVendeur.class)
 	public List<Object[]> findByOptionnal(@PathVariable String search) {
@@ -58,30 +63,38 @@ public class EntrepriseApiRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 		List<Object[]> optEntreprise = entrepriseDao.findByNomOrCPOrVille(search);
-		return  optEntreprise;
-		
-	
+		return optEntreprise;
+
 	}
-	
-	
 
 	@PostMapping("")
 	@JsonView(IViews.IViewEntreprise.class)
-	public Entreprise create(Entreprise Entreprise) {	
+	public Entreprise create(@Valid @RequestBody Entreprise Entreprise, BindingResult result) {
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		Entreprise = entrepriseDao.save(Entreprise);
-
 		return Entreprise;
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(IViews.IViewEntreprise.class)
-	public Entreprise update(@RequestBody Entreprise Entreprise, @PathVariable Long id) {
+	public Entreprise update(@Valid @RequestBody Entreprise Entreprise, @PathVariable Long id, BindingResult result) {
 		if (!entrepriseDao.existsById(id) || !id.equals(Entreprise.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
-
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		Entreprise = entrepriseDao.save(Entreprise);
-
 		return Entreprise;
 	}
 

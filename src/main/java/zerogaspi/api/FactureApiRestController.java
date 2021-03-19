@@ -4,10 +4,15 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.StringJoiner;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,7 +31,7 @@ import zerogaspi.model.Facture;
 import zerogaspi.model.IViews;
 
 @RestController
-@RequestMapping("/api/facture")
+@RequestMapping("/facture")
 public class FactureApiRestController {
 
 	@Autowired
@@ -51,25 +56,34 @@ public class FactureApiRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
-	
 
 	@PostMapping("")
 	@JsonView(IViews.IViewFacture.class)
-	public Facture create(Facture Facture) {	
+	public Facture create(@Valid @RequestBody Facture Facture, BindingResult result) {
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		Facture = factureDao.save(Facture);
-
 		return Facture;
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(IViews.IViewFacture.class)
-	public Facture update(@RequestBody Facture Facture, @PathVariable Long id) {
+	public Facture update(@Valid @RequestBody Facture Facture, @PathVariable Long id, BindingResult result) {
 		if (!factureDao.existsById(id) || !id.equals(Facture.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
-
-		Facture = factureDao.save(Facture);
-
+		if (result.hasErrors()) {
+			StringJoiner errors = new StringJoiner("\n");
+			for (ObjectError oe : result.getAllErrors()) {
+				errors.add(oe.getDefaultMessage());
+			}
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
+		}
 		return Facture;
 	}
 

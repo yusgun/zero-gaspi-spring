@@ -24,7 +24,7 @@ public class Facture {
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "commande_id")
-	@JsonView(IViews.IViewFactureDetail.class)
+	@JsonView(IViews.IViewFactureWithCommande.class)
 	private Commande commande;
 
 	

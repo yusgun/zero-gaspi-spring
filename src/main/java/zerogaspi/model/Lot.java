@@ -26,7 +26,7 @@ public class Lot {
 	private String description;
 	@OneToOne
 	@JoinColumn(name="entreprise_id")
-	@JsonView(IViews.IViewBasic.class)
+	@JsonView(IViews.IViewLotWithEntreprise.class)
 	private Entreprise entreprise;
 
 	public Lot() {

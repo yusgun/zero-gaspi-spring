@@ -20,7 +20,7 @@ public class CommandeGratuite extends Commande {
 	}
 	
 	public CommandeGratuite(Long id, Date datePaiement, Date dateEnvoie, Date dateArrivee, Lot lot) {
-		super(id, datePaiement, dateEnvoie, dateArrivee, lot);
+		super(datePaiement, dateEnvoie, dateArrivee, lot);
 		this.montant = 0;
 	}
 

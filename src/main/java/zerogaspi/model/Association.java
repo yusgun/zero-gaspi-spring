@@ -10,7 +10,6 @@ import javax.validation.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
-@Table(name="association")
 @DiscriminatorValue("association")
 public class Association extends Client{
 	@GeneratedValue

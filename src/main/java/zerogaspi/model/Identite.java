@@ -12,44 +12,48 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 @Table(name = "identite")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="type_identite")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type_identite")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({ @Type(value = Client.class, name = "client"), @Type(value = Association.class, name = "association"), @Type(value = Vendeur.class, name = "vendeur") })
 public abstract class Identite {
 
 	@Id
 	@GeneratedValue
 	@JsonView(IViews.IViewBasic.class)
 	private Long id;
-	@NotEmpty(message="Ajouter un numéro de téléphone")
-	@Pattern(regexp="^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$", message = "numéro de téléphone invalide")
+	@NotEmpty(message = "Ajouter un numéro de téléphone")
+	@Pattern(regexp = "^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$", message = "numéro de téléphone invalide")
 	@JsonView(IViews.IViewBasic.class)
 	private String numeroTelephone;
-	@NotEmpty(message="Ajouter une adresse (sans CP et la ville)")
+	@NotEmpty(message = "Ajouter une adresse (sans CP et la ville)")
 	@JsonView(IViews.IViewBasic.class)
 	private String rue;
-	@NotEmpty(message="Ajouter un code postal")
+	@NotEmpty(message = "Ajouter un code postal")
 	@JsonView(IViews.IViewBasic.class)
-	@Pattern(regexp="^(([1-95]{2}|2A|2B)[0-9]{3})$|^[971-974]$", message = "Code postal invalide")
+	@Pattern(regexp = "^(([1-95]{2}|2A|2B)[0-9]{3})$|^[971-974]$", message = "Code postal invalide")
 	private String codePostal;
-	@NotEmpty(message="Ajouter un code postal")
+	@NotEmpty(message = "Ajouter un code postal")
 	@JsonView(IViews.IViewBasic.class)
 	private String ville;
-	@NotEmpty(message="Ajouter un nom")
+	@NotEmpty(message = "Ajouter un nom")
 	@JsonView(IViews.IViewBasic.class)
 	private String nom;
-	@NotEmpty(message="Ajouter un prénom")
+	@NotEmpty(message = "Ajouter un prénom")
 	@JsonView(IViews.IViewBasic.class)
 	private String prenom;
 	@OneToOne
 	@JoinColumn(name = "connexion_id")
 	@JsonView(IViews.IViewIdentiteWithConnexion.class)
 	private Connexion connexion;
-	
-	
+
 	public Identite() {
 		super();
 	}
@@ -150,16 +154,5 @@ public abstract class Identite {
 	public void setConnexions(Connexion connexion) {
 		this.connexion = connexion;
 	}
-
-
-	
-	
-	
-	
-	
-	
-
-	
-	
 
 }

@@ -1,19 +1,15 @@
 package zerogaspi.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-
 @Entity
-@Table(name = "client")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorValue("client")
 public class Client extends Identite {
-	
+
 	@JsonView(IViews.IViewBasic.class)
 	@Column(name = "perimetre")
 	private int perimetre;
@@ -25,13 +21,13 @@ public class Client extends Identite {
 	public Client(Long id, String numeroTelephone, String rue, String codePostal, String adresse, String nom,
 			String prenom, Connexion connexion, int perimetre) {
 		super(id, numeroTelephone, rue, codePostal, adresse, nom, prenom, connexion);
-		this.perimetre = perimetre;
+		this.perimetre = 0;
 	}
 
 	public Client(String numeroTelephone, String rue, String codePostal, String adresse, String nom, String prenom,
 			Connexion connexion, int perimetre) {
 		super(numeroTelephone, rue, codePostal, adresse, nom, prenom, connexion);
-		this.perimetre = perimetre;
+		this.perimetre = 0;
 	}
 
 	public int getPerimetre() {

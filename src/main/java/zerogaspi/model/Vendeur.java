@@ -14,7 +14,6 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
-@Table(name = "vendeur")
 @DiscriminatorValue("vendeur")
 public class Vendeur extends Identite {
 

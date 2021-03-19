@@ -27,14 +27,19 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import zerogaspi.dao.IConnexion;
+import zerogaspi.dao.IIdentite;
+import zerogaspi.model.Client;
 import zerogaspi.model.Connexion;
 import zerogaspi.model.IViews;
+import zerogaspi.model.Identite;
 
 @RestController
 @RequestMapping("/connexion")
 public class ConnexionApiRestController {
 	@Autowired
 	private IConnexion connexionDao;
+	@Autowired
+	private IIdentite identiteDao;
 
 	@GetMapping("")
 	@JsonView(IViews.IViewConnexion.class)
@@ -120,5 +125,21 @@ public class ConnexionApiRestController {
 		if (connexionDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
+	}
+	
+	@GetMapping("/get")
+	public Identite getConnexion(@RequestBody Connexion connexion) {
+		Connexion connUser = null;
+		List<Connexion> all = connexionDao.findAll();
+		for (Connexion conn : all) {
+			if((conn.getMail().equals(connexion.getMail())) && (conn.getMotDePasse().equals(connexion.getMotDePasse()))) {
+				connUser = conn;
+			}
+		}
+		Identite identite = null;
+		if(connUser != null) {
+			identite = identiteDao.findByConnexion(connUser);
+		}
+		return identite;
 	}
 }

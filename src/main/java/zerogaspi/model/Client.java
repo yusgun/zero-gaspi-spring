@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
-@DiscriminatorValue("client")
 public abstract class Client extends Identite {
 
 	@JsonView(IViews.IViewBasic.class)

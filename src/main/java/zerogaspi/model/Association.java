@@ -22,17 +22,16 @@ public class Association extends Client{
 	@Column(name="numero_rna", length = 45)
 	@NotEmpty(message="Entrer le numero RNA de l'assocation")
 	@JsonView(IViews.IViewBasic.class)
-	private int numero;
-	
+	private String numeroRNA;
 	public Association() {
 		super();
 	}
 
-	public Association(Long id, String libelle, int numero) {
+	public Association(Long id, String libelle, String numeroRNA) {
 		super();
 		this.id = id;
 		this.libelle = libelle;
-		this.numero = numero;
+		this.numeroRNA = numeroRNA;
 	}
 
 
@@ -66,18 +65,18 @@ public class Association extends Client{
 		this.libelle = libelle;
 	}
 
-	public int getNumero() {
-		return numero;
+	public String getNumero() {
+		return numeroRNA;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setNumero(String numero) {
+		this.numeroRNA = numero;
 	}
 
-	public Association(String libelle, int numero) {
+	public Association(String libelle, String numero) {
 		super();
 		this.libelle = libelle;
-		this.numero = numero;
+		this.numeroRNA = numero;
 	}
 
 	

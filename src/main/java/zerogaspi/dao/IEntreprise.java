@@ -17,6 +17,6 @@ public interface IEntreprise extends JpaRepository<Entreprise, Long> {
 	@Query("select e from Entreprise e where e.typeRestauration = :typeRestauration")
 	Entreprise findByTypeRestauration(@Param("typeRestauration") String typeRestauration);
 	
-	@Query("select e.nomEntreprise,e.vendeur.ville,e.vendeur.codePostal,e.vendeur.numeroTelephone,e.vendeur.rue from Entreprise e where e.nomEntreprise = :search or e.vendeur.ville = :search or e.vendeur.codePostal = :search")
+	@Query("select e.nomEntreprise,e.vendeur.ville,e.vendeur.codePostal,e.vendeur.numeroTelephone,e.vendeur.rue, e.id from Entreprise e where e.nomEntreprise = :search or e.vendeur.ville = :search or e.vendeur.codePostal = :search")
 	List<Object[]> findByNomOrCPOrVille(@Param("search")String search);
 }

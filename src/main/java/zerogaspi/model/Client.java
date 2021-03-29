@@ -1,18 +1,39 @@
 package zerogaspi.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+<<<<<<< Updated upstream
+import javax.persistence.OneToOne;
+
+
+=======
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+>>>>>>> Stashed changes
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public abstract class Client extends Identite {
-
+	
+	
 	@JsonView(IViews.IViewBasic.class)
 	@Column(name = "perimetre")
 	private int perimetre;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "commande_id")
+	@JsonView(IViews.IViewFactureWithCommande.class)
+	private Commande commande;
 
+//	@OneToOne(mappedBy = "ListeFavori", cascade= CascadeType.ALL)
+//	private List<Entreprise> favoris;
+	
 	public Client() {
 		super();
 	}

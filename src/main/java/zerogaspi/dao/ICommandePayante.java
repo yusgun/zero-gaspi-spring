@@ -24,5 +24,5 @@ public interface ICommandePayante extends JpaRepository<CommandePayante, Long> {
 	
 	@Query("select c from CommandePayante c order by c.dateArrivee Asc ")
 	List<CommandePayante> findCpByDateArriveeAsc();
-	
+
 }

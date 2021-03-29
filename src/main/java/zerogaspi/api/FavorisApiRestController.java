@@ -28,7 +28,9 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import zerogaspi.dao.IClient;
+import zerogaspi.dao.IEntreprise;
 import zerogaspi.dao.IFavoris;
+import zerogaspi.model.Client;
 import zerogaspi.model.Entreprise;
 import zerogaspi.model.IViews;
 import zerogaspi.model.ListeFavori;
@@ -42,9 +44,12 @@ public class FavorisApiRestController {
 	private IFavoris favorisDao;
 	@Autowired
 	private IClient clientDao;
+	@Autowired
+	private IEntreprise entrepriseDao;
+
 
 	@GetMapping("")
-	//@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
+	@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
 	public List<ListeFavori> list() {
 		List<ListeFavori> Favoris = favorisDao.findAll();
 
@@ -127,6 +132,25 @@ public class FavorisApiRestController {
 		if (favorisDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
 		}
+	}
+	
+	@DeleteMapping("/client/{idClient}/entreprise/{idEntreprise}")
+	public void deleteByClientEntreprise(@PathVariable Long idClient, @PathVariable Long idEntreprise) {
+		if (!clientDao.existsById(idClient)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
+		}
+		if (!entrepriseDao.existsById(idEntreprise)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
+		}
+		ListeFavori lf = null;
+		List<ListeFavori> list = favorisDao.findAll();
+		for (ListeFavori fav : list) {
+			if(fav.getClient().getId() == idClient && fav.getEntreprise().getId() == idEntreprise) {
+				lf = fav;
+				break;
+			}
+		}
+		favorisDao.deleteById(lf.getId());
 	}
 
 	@GetMapping("/findby/client/{id}")

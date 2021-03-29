@@ -24,9 +24,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
 import com.fasterxml.jackson.annotation.JsonView;
+
 import zerogaspi.dao.IClient;
 import zerogaspi.dao.IFavoris;
+import zerogaspi.model.Entreprise;
 import zerogaspi.model.IViews;
 import zerogaspi.model.ListeFavori;
 
@@ -41,7 +44,7 @@ public class FavorisApiRestController {
 	private IClient clientDao;
 
 	@GetMapping("")
-	@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
+	//@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
 	public List<ListeFavori> list() {
 		List<ListeFavori> Favoris = favorisDao.findAll();
 
@@ -49,7 +52,7 @@ public class FavorisApiRestController {
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
+	//@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
 	public ListeFavori find(@PathVariable Long id) {
 		Optional<ListeFavori> optFavori = favorisDao.findById(id);
 
@@ -61,7 +64,7 @@ public class FavorisApiRestController {
 	}
 
 	@PostMapping("")
-	@JsonView(IViews.IViewListeFavori.class)
+	//@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
 	public ListeFavori create(@Valid @RequestBody ListeFavori ListeFavori, BindingResult result) {
 		if (result.hasErrors()) {
 			StringJoiner errors = new StringJoiner("\n");
@@ -70,13 +73,14 @@ public class FavorisApiRestController {
 			}
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errors.toString());
 		}
+		ListeFavori.setClient(clientDao.findById(11L).get());
 		ListeFavori = favorisDao.save(ListeFavori);
 
 		return ListeFavori;
 	}
 
 	@PutMapping("/{id}")
-	@JsonView(IViews.IViewListeFavori.class)
+	//@JsonView(IViews.IViewListeFavori.class)
 	public ListeFavori update(@Valid @RequestBody ListeFavori ListeFavori, @PathVariable Long id, BindingResult result) {
 		if (!favorisDao.existsById(id) || !id.equals(ListeFavori.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -93,7 +97,7 @@ public class FavorisApiRestController {
 	}
 	
 	@PatchMapping("/{id}")
-	@JsonView(IViews.IViewListeFavori.class)
+	//@JsonView(IViews.IViewListeFavori.class)
 	public ListeFavori partialUpdate(@RequestBody Map<String, Object> updates, @PathVariable Long id) {
 		if (!favorisDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
@@ -126,7 +130,7 @@ public class FavorisApiRestController {
 	}
 
 	@GetMapping("/findby/client/{id}")
-	@JsonView(IViews.IViewListeFavoriWithEntreprise.class)
+	//@JsonView(IViews.IViewListeFavoriWithClientAndEntreprise.class)
 	public List<Object[]> findByClient(@PathVariable Long id) {
 		if (!clientDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

@@ -52,20 +52,22 @@ public Commande() {
 	super();
 }
 
-public Commande(Date datePaiement, Date dateEnvoie, Date dateArrivee, Lot lot) {
+public Commande(Date datePaiement, Date dateEnvoie, Date dateArrivee, Client client, Lot lot) {
 	super();
 	this.datePaiement = datePaiement;
 	this.dateEnvoie = dateEnvoie;
 	this.dateArrivee = dateArrivee;
+	this.client = client;
 	this.lot = lot;
 }
 
-public Commande(Long id, Date datePaiement, Date dateEnvoie, Date dateArrivee, Lot lot) {
+public Commande(Long id, Date datePaiement, Date dateEnvoie, Date dateArrivee, Client client, Lot lot) {
 	super();
 	this.id = id;
 	this.datePaiement = datePaiement;
 	this.dateEnvoie = dateEnvoie;
 	this.dateArrivee = dateArrivee;
+	this.client = client;
 	this.lot = lot;
 }
 

@@ -18,13 +18,13 @@ public class CommandeGratuite extends Commande {
 		super();
 	}
 	
-	public CommandeGratuite(Long id, Date datePaiement, Date dateEnvoie, Date dateArrivee, Lot lot) {
-		super(datePaiement, dateEnvoie, dateArrivee, lot);
+	public CommandeGratuite(Long id, Date datePaiement, Date dateEnvoie, Date dateArrivee, Client client, Lot lot) {
+		super(datePaiement, dateEnvoie, dateArrivee, client, lot);
 		this.montant = 0;
 	}
 
-	public CommandeGratuite(Date datePaiement, Date dateEnvoie, Date dateArrivee, Lot lot) {
-		super(datePaiement, dateEnvoie, dateArrivee, lot);
+	public CommandeGratuite(Date datePaiement, Date dateEnvoie, Date dateArrivee, Client client, Lot lot) {
+		super(datePaiement, dateEnvoie, dateArrivee, client, lot);
 		this.montant = 0;
 	}
 

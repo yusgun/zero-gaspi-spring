@@ -18,13 +18,13 @@ public class CommandePayante extends Commande {
 		super();
 	}
 
-	public CommandePayante(Long id, Date datePaiement, Date dateEnvoie, Date dateArrivee, double montant, Lot lot) {
-		super(id, datePaiement, dateEnvoie, dateArrivee, lot);
+	public CommandePayante(Long id, Date datePaiement, Date dateEnvoie, Date dateArrivee, double montant, Client client, Lot lot) {
+		super(id, datePaiement, dateEnvoie, dateArrivee, client, lot);
 		this.montant = montant;
 	}
 
-	public CommandePayante( Date datePaiement, Date dateEnvoie, Date dateArrivee, double montant, Lot lot) {
-		super(datePaiement, dateEnvoie, dateArrivee, lot);
+	public CommandePayante( Date datePaiement, Date dateEnvoie, Date dateArrivee, double montant, Client client, Lot lot) {
+		super(datePaiement, dateEnvoie, dateArrivee, client, lot);
 		this.montant = montant;
 	}
 	

@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name = "identite")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type_identite")
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type_identite")
 @JsonSubTypes({ @Type(value = Particulier.class, name = "particulier"), @Type(value = Association.class, name = "association"), @Type(value = Vendeur.class, name = "vendeur") })
 public abstract class Identite {
 

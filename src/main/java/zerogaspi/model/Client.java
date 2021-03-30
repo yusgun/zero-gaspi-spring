@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
@@ -19,9 +18,6 @@ public abstract class Client extends Identite {
 	@Column(name = "perimetre")
 	private int perimetre;
 	
-
-	@OneToOne(mappedBy = "ListeFavori", cascade= CascadeType.ALL)
-	private List<Entreprise> favoris;
 	
 	public Client() {
 		super();

@@ -26,8 +26,6 @@ public interface ICommandeGratuite extends JpaRepository<CommandeGratuite, Long>
 	
 	@Query("select c from CommandeGratuite c order by c.dateArrivee Asc ")
 	List<CommandeGratuite> findCgByDateArriveeAsc();
-	
-	@Query("select c from CommandeGratuite c order by c.client_id = :client_id")
-	List<CommandeGratuite> findCgByClient(@Param("client_id") Long id);
+
 
 }

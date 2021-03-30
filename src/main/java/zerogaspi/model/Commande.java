@@ -44,7 +44,7 @@ public abstract class Commande {
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "client_id")
-	@JsonView(IViews.IViewCommandeWithFacture.class)
+	@JsonView(IViews.IViewCommandeWithClient.class)
 	private Client client;
 	
 	

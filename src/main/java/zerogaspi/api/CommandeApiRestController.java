@@ -34,7 +34,7 @@ import zerogaspi.model.Commande;
 import zerogaspi.model.CommandeGratuite;
 import zerogaspi.model.CommandePayante;
 import zerogaspi.model.IViews;
-import zerogaspi.model.IViews.IViewCommandeGratuiteWithLotAndFacture;
+import zerogaspi.model.IViews.IViewCommandeGratuiteWithLotAndClient;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
@@ -48,7 +48,7 @@ public class CommandeApiRestController {
 	private ICommandeGratuite commandeGratuiteDao;
 
 	@GetMapping("")
-	@JsonView(IViews.IViewCommandeWithLotAndFacture.class)
+	@JsonView(IViews.IViewCommandeWithLotAndClient.class)
 	public List<Commande> list() {
 		List<Commande> Commandes = commandeDao.findAll();
 
@@ -56,7 +56,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(IViews.IViewCommandeWithLotAndFacture.class)
+	@JsonView(IViews.IViewCommandeWithLotAndClient.class)
 	public Commande find(@PathVariable Long id) {
 		Optional<Commande> optCommande = commandeDao.findById(id);
 
@@ -192,7 +192,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/dateEnvoie/desc")
-	@JsonView(IViewCommandeGratuiteWithLotAndFacture.class)
+	@JsonView(IViewCommandeGratuiteWithLotAndClient.class)
 	public List<CommandeGratuite> findCgByDateEnvoieDesc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieDesc();
 		if (commandes.size() == 0) {
@@ -202,7 +202,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/dateEnvoie/asc")
-	@JsonView(IViewCommandeGratuiteWithLotAndFacture.class)
+	@JsonView(IViewCommandeGratuiteWithLotAndClient.class)
 	public List<CommandeGratuite> findCgByDateEnvoieAsc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieAsc();
 		if (commandes.size() == 0) {
@@ -212,7 +212,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/datePaiement/desc")
-	@JsonView(IViewCommandeGratuiteWithLotAndFacture.class)
+	@JsonView(IViewCommandeGratuiteWithLotAndClient.class)
 	public List<CommandeGratuite> findCgByDatePaiementDesc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementDesc();
 		if (commandes.size() == 0) {
@@ -222,7 +222,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/datePaiement/asc")
-	@JsonView(IViewCommandeGratuiteWithLotAndFacture.class)
+	@JsonView(IViewCommandeGratuiteWithLotAndClient.class)
 	public List<CommandeGratuite> findCgByDatePaiementAsc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementAsc();
 		if (commandes.size() == 0) {
@@ -232,7 +232,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/dateArrivee/desc")
-	@JsonView(IViewCommandeGratuiteWithLotAndFacture.class)
+	@JsonView(IViewCommandeGratuiteWithLotAndClient.class)
 	public List<CommandeGratuite> findCgByDateArriveeDesc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeDesc();
 		if (commandes.size() == 0) {
@@ -242,7 +242,7 @@ public class CommandeApiRestController {
 	}
 
 	@GetMapping("/gratuite/findby/dateArrivee/asc")
-	@JsonView(IViewCommandeGratuiteWithLotAndFacture.class)
+	@JsonView(IViewCommandeGratuiteWithLotAndClient.class)
 	public List<CommandeGratuite> findCgByDateArriveeAsc() {
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeAsc();
 		if (commandes.size() == 0) {

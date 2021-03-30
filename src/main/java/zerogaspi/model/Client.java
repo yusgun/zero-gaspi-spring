@@ -8,10 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-<<<<<<< Updated upstream
-=======
-import javax.persistence.OneToOne;
->>>>>>> Stashed changes
 
 import com.fasterxml.jackson.annotation.JsonView;
 

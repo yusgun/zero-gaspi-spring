@@ -41,11 +41,11 @@ public abstract class Commande {
 	@JsonView(IViews.IViewCommandeWithLot.class)
 	private Lot lot;
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "facture_id")
-	@JsonView(IViews.IViewCommandeWithFacture.class)
-	private Facture facture;
 	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "client_id")
+	@JsonView(IViews.IViewCommandeWithFacture.class)
+	private Client client;
 	
 	
 public Commande() {

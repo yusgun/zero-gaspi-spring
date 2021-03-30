@@ -8,10 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-<<<<<<< Updated upstream
-=======
 import javax.persistence.OneToOne;
->>>>>>> Stashed changes
+
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -23,9 +21,6 @@ public abstract class Client extends Identite {
 	@Column(name = "perimetre")
 	private int perimetre;
 	
-
-	@OneToOne(mappedBy = "ListeFavori", cascade= CascadeType.ALL)
-	private List<Entreprise> favoris;
 	
 	public Client() {
 		super();

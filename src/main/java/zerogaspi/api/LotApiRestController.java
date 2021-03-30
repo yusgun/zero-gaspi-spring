@@ -128,7 +128,7 @@ public class LotApiRestController {
 	@GetMapping("/entreprise/{id}")
 	@JsonView(IViews.IViewLotWithEntreprise.class)
 	public List<Lot> findByEntreprise(@PathVariable Long id) {
-		if(entrepriseDao.existsById(id)) {
+		if(!entrepriseDao.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 		List<Lot> lots = lotDao.findByEntreprise(id);

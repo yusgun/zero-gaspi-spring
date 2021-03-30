@@ -142,12 +142,14 @@ public class FavorisApiRestController {
 		if (!entrepriseDao.existsById(idEntreprise)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
+		ListeFavori lf = null;
 		List<ListeFavori> list = favorisDao.findAll();
 		for (ListeFavori fav : list) {
 			if(fav.getClient().getId() == idClient && fav.getEntreprise().getId() == idEntreprise) {
-				favorisDao.deleteById(fav.getId());
+				lf = fav;
 			}
 		}
+		favorisDao.delete(lf);
 	}
 
 	@GetMapping("/findby/client/{id}")

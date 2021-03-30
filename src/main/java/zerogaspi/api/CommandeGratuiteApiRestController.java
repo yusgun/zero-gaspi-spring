@@ -31,6 +31,7 @@ import zerogaspi.dao.ICommandeGratuite;
 import zerogaspi.model.Commande;
 import zerogaspi.model.CommandeGratuite;
 import zerogaspi.model.IViews;
+import zerogaspi.model.IViews.IViewCommandeGratuiteWithLotAndClient;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
@@ -43,12 +44,12 @@ public class CommandeGratuiteApiRestController {
 	@JsonView(IViews.IViewCommandeGratuiteWithLot.class)
 	public List<CommandeGratuite> list() {
 		List<CommandeGratuite> Commandes = commandeGratuiteDao.findAll();
-
+		
 		return Commandes; // transforme en JSON via jackson
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(IViews.IViewCommandeGratuiteWithLot.class)
+	@JsonView(IViews.IViewCommandeGratuiteWithLotAndClient.class)
 	public CommandeGratuite find(@PathVariable Long id) {
 		Optional<CommandeGratuite> optCommande = commandeGratuiteDao.findById(id);
 
@@ -60,10 +61,9 @@ public class CommandeGratuiteApiRestController {
 	}
 
 	@PostMapping("")
-	@JsonView(IViews.IViewCommandeGratuite.class)
+	@JsonView(IViews.IViewCommandeGratuiteWithLotAndClient.class)
 	public CommandeGratuite create(@Valid @RequestBody CommandeGratuite Commandegratuite, BindingResult result) {
 		Commandegratuite = commandeGratuiteDao.save(Commandegratuite);
-
 		return Commandegratuite;
 	}
 

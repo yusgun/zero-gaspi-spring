@@ -23,7 +23,7 @@ public class ListeFavori {
 	@JsonView(IViews.IViewBasic.class)
 	private Long id;
 	
-	@OneToOne(orphanRemoval = true )
+	@OneToOne()
 	@JoinColumn(name= "client_id")
 	@JsonView(IViews.IViewListeFavoriWithClient.class)
 	private Client client;

@@ -250,5 +250,15 @@ public class CommandeApiRestController {
 		}
 		return commandes;
 	}
+	
+	@GetMapping("/gratuite/findby/clients/{id}")
+	@JsonView(IViewCommandeGratuiteWithLotAndFacture.class)
+	public List<CommandeGratuite> findCgByClient(Long id) {
+		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByClient(id);
+		if (commandes.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Unable to find resource");
+		}
+		return commandes;
+	}
 
 }

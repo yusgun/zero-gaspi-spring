@@ -26,15 +26,15 @@ public class CommandePayanteTest {
 		
 		
 		CommandePayante commande = new CommandePayante(sdf.parse("28/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande = commandePayanteDao.save(commande);
 
 		CommandePayante commande1 = new CommandePayante(sdf.parse("29/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande1 = commandePayanteDao.save(commande1);
 
 		CommandePayante commande2 = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande2 = commandePayanteDao.save(commande2);
 
 		List<CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieDesc();
@@ -50,15 +50,15 @@ public class CommandePayanteTest {
 		List<CommandePayante> commandes2 = commandePayanteDao.findCpByDateEnvoieAsc();
 		
 		CommandePayante commande = new CommandePayante(sdf.parse("28/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande = commandePayanteDao.save(commande);
 
 		CommandePayante commande1 = new CommandePayante(sdf.parse("29/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande1 = commandePayanteDao.save(commande1);
 
 		CommandePayante commande2 = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande2 = commandePayanteDao.save(commande2);
 
 		List<CommandePayante> commandes = commandePayanteDao.findCpByDateEnvoieAsc();
@@ -74,15 +74,15 @@ public class CommandePayanteTest {
 		List<CommandePayante> commandes2 = commandePayanteDao.findCpByDatePaiementDesc();
 		
 		CommandePayante commande = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande = commandePayanteDao.save(commande);
 
 		CommandePayante commande1 = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande1 = commandePayanteDao.save(commande1);
 
 		CommandePayante commande2 = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande2 = commandePayanteDao.save(commande2);
 
 		List<CommandePayante> commandes = commandePayanteDao.findCpByDatePaiementDesc();
@@ -98,15 +98,15 @@ public class CommandePayanteTest {
 		List<CommandePayante> commandes2 = commandePayanteDao.findCpByDatePaiementAsc();
 		
 		CommandePayante commande = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande = commandePayanteDao.save(commande);
 
 		CommandePayante commande1 = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande1 = commandePayanteDao.save(commande1);
 
 		CommandePayante commande2 = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande2 = commandePayanteDao.save(commande2);
 
 		List<CommandePayante> commandes = commandePayanteDao.findCpByDatePaiementAsc();
@@ -122,15 +122,15 @@ public class CommandePayanteTest {
 		List<CommandePayante> commandes2 = commandePayanteDao.findCpByDateArriveeDesc();
 		
 		CommandePayante commande = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande = commandePayanteDao.save(commande);
 
 		CommandePayante commande1 = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande1 = commandePayanteDao.save(commande1);
 
 		CommandePayante commande2 = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande2 = commandePayanteDao.save(commande2);
 
 		List<CommandePayante> commandes = commandePayanteDao.findCpByDateArriveeDesc();
@@ -146,15 +146,15 @@ public class CommandePayanteTest {
 		List<CommandePayante> commandes2 = commandePayanteDao.findCpByDateArriveeAsc();
 		
 		CommandePayante commande = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande = commandePayanteDao.save(commande);
 
 		CommandePayante commande1 = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande1 = commandePayanteDao.save(commande1);
 
 		CommandePayante commande2 = new CommandePayante(sdf.parse("30/03/2021"), sdf.parse("28/03/2021"), sdf.parse("29/03/2021"),
-				25.0, null);
+				25.0, null,null);
 		commande2 = commandePayanteDao.save(commande2);
 
 		List<CommandePayante> commandes = commandePayanteDao.findCpByDateArriveeAsc();

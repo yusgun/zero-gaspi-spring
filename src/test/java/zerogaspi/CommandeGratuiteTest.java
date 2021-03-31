@@ -26,15 +26,15 @@ public class CommandeGratuiteTest {
 		
 		
 		CommandeGratuite commande = new CommandeGratuite(sdf.parse("28/03/2021"), sdf.parse("28/03/2021"), sdf.parse("28/03/2021"),
-				  null);
+				  null,null);
 		commande = commandeGratuiteDao.save(commande);
 
 		CommandeGratuite commande1 = new CommandeGratuite(sdf.parse("29/03/2021"), sdf.parse("29/03/2021"), sdf.parse("29/03/2021"),
-				  null);
+				  null,null);
 		commande1 = commandeGratuiteDao.save(commande1);
 
 		CommandeGratuite commande2 = new CommandeGratuite(sdf.parse("30/03/2021"), sdf.parse("30/03/2021"), sdf.parse("30/03/2021"),
-				  null);
+				  null,null);
 		commande2 = commandeGratuiteDao.save(commande2);
 
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieDesc();
@@ -50,15 +50,15 @@ public class CommandeGratuiteTest {
 		List<CommandeGratuite> commandes2 = commandeGratuiteDao.findCgByDateEnvoieAsc();
 		
 		CommandeGratuite commande = new CommandeGratuite(sdf.parse("28/03/2021"), sdf.parse("28/03/2021"), sdf.parse("28/03/2021"),
-				  null);
+				  null,null);
 		commande = commandeGratuiteDao.save(commande);
 
 		CommandeGratuite commande1 = new CommandeGratuite(sdf.parse("29/03/2021"), sdf.parse("29/03/2021"), sdf.parse("29/03/2021"),
-				  null);
+				  null,null);
 		commande1 = commandeGratuiteDao.save(commande1);
 
 		CommandeGratuite commande2 = new CommandeGratuite(sdf.parse("30/03/2021"), sdf.parse("30/03/2021"), sdf.parse("30/03/2021"),
-				  null);
+				  null,null);
 		commande2 = commandeGratuiteDao.save(commande2);
 
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateEnvoieAsc();
@@ -74,15 +74,15 @@ public class CommandeGratuiteTest {
 		List<CommandeGratuite> commandes2 = commandeGratuiteDao.findCgByDatePaiementDesc();
 		
 		CommandeGratuite commande = new CommandeGratuite(sdf.parse("28/03/2021"), sdf.parse("28/03/2021"), sdf.parse("28/03/2021"),
-				  null);
+				  null,null);
 		commande = commandeGratuiteDao.save(commande);
 
 		CommandeGratuite commande1 = new CommandeGratuite(sdf.parse("29/03/2021"), sdf.parse("29/03/2021"), sdf.parse("29/03/2021"),
-				  null);
+				  null,null);
 		commande1 = commandeGratuiteDao.save(commande1);
 
 		CommandeGratuite commande2 = new CommandeGratuite(sdf.parse("30/03/2021"), sdf.parse("30/03/2021"), sdf.parse("30/03/2021"),
-				  null);
+				  null,null);
 		commande2 = commandeGratuiteDao.save(commande2);
 
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementDesc();
@@ -98,15 +98,15 @@ public class CommandeGratuiteTest {
 		List<CommandeGratuite> commandes2 = commandeGratuiteDao.findCgByDatePaiementAsc();
 		
 		CommandeGratuite commande = new CommandeGratuite(sdf.parse("28/03/2021"), sdf.parse("28/03/2021"), sdf.parse("28/03/2021"),
-				  null);
+				  null,null);
 		commande = commandeGratuiteDao.save(commande);
 
 		CommandeGratuite commande1 = new CommandeGratuite(sdf.parse("29/03/2021"), sdf.parse("29/03/2021"), sdf.parse("29/03/2021"),
-				  null);
+				  null,null);
 		commande1 = commandeGratuiteDao.save(commande1);
 
 		CommandeGratuite commande2 = new CommandeGratuite(sdf.parse("30/03/2021"), sdf.parse("30/03/2021"), sdf.parse("30/03/2021"),
-				  null);
+				  null,null);
 		commande2 = commandeGratuiteDao.save(commande2);
 
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDatePaiementAsc();
@@ -122,15 +122,15 @@ public class CommandeGratuiteTest {
 		List<CommandeGratuite> commandes2 = commandeGratuiteDao.findCgByDateArriveeDesc();
 		
 		CommandeGratuite commande = new CommandeGratuite(sdf.parse("28/03/2021"), sdf.parse("28/03/2021"), sdf.parse("28/03/2021"),
-				  null);
+				  null,null);
 		commande = commandeGratuiteDao.save(commande);
 
 		CommandeGratuite commande1 = new CommandeGratuite(sdf.parse("29/03/2021"), sdf.parse("29/03/2021"), sdf.parse("29/03/2021"),
-				  null);
+				  null,null);
 		commande1 = commandeGratuiteDao.save(commande1);
 
 		CommandeGratuite commande2 = new CommandeGratuite(sdf.parse("30/03/2021"), sdf.parse("30/03/2021"), sdf.parse("30/03/2021"),
-				  null);
+				  null,null);
 		commande2 = commandeGratuiteDao.save(commande2);
 
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeDesc();
@@ -145,15 +145,15 @@ public class CommandeGratuiteTest {
 		List<CommandeGratuite> commandes2 = commandeGratuiteDao.findCgByDateArriveeAsc();
 		
 		CommandeGratuite commande = new CommandeGratuite(sdf.parse("28/03/2021"), sdf.parse("28/03/2021"), sdf.parse("28/03/2021"),
-				  null);
+				  null,null);
 		commande = commandeGratuiteDao.save(commande);
 
 		CommandeGratuite commande1 = new CommandeGratuite(sdf.parse("29/03/2021"), sdf.parse("29/03/2021"), sdf.parse("29/03/2021"),
-				  null);
+				  null,null);
 		commande1 = commandeGratuiteDao.save(commande1);
 
 		CommandeGratuite commande2 = new CommandeGratuite(sdf.parse("30/03/2021"), sdf.parse("30/03/2021"), sdf.parse("30/03/2021"),
-				  null);
+				  null,null);
 		commande2 = commandeGratuiteDao.save(commande2);
 
 		List<CommandeGratuite> commandes = commandeGratuiteDao.findCgByDateArriveeAsc();

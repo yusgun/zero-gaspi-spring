@@ -50,7 +50,7 @@ public abstract class Identite {
 	@NotEmpty(message = "Ajouter un prénom")
 	@JsonView(IViews.IViewBasic.class)
 	private String prenom;
-	@OneToOne(cascade={CascadeType.MERGE})
+	@OneToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name = "connexion_id")
 	@JsonView(IViews.IViewIdentiteWithConnexion.class)
 	private Connexion connexion;

@@ -1,5 +1,6 @@
 package zerogaspi.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,7 +50,7 @@ public abstract class Identite {
 	@NotEmpty(message = "Ajouter un prénom")
 	@JsonView(IViews.IViewBasic.class)
 	private String prenom;
-	@OneToOne
+	@OneToOne(cascade={CascadeType.MERGE})
 	@JoinColumn(name = "connexion_id")
 	@JsonView(IViews.IViewIdentiteWithConnexion.class)
 	private Connexion connexion;
